@@ -8,5 +8,8 @@
         public string RequestDetailDescription { get; set; }
         public Boolean IsDamaged { get; set; }
         public Boolean IsLost { get; set; }
+
+        public Books Books { get; set; }
+        public RequestHeader RequestHeader { get; set; }
     }
 }

@@ -11,5 +11,10 @@
         public float CommentLike { get; set; }
         public float CommentDislike { get; set; }
         public Boolean CommentFlag { get; set; }
+
+        public Admins Admins { get; set; }
+        public Students Students { get; set; }
+        public Books Books { get; set; }
+        //done
     }
 }

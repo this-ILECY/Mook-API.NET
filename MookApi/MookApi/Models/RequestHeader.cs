@@ -9,5 +9,9 @@
         public string RequestFinishedDate { get; set; }
         public int IsDelayed { get; set; }
         public string RequestDecription { get; set; }
+
+        public Admins Admins { get; set; }
+        public List<RequestDetails> RequestDetails { get; set; }
+        //done
     }
 }
