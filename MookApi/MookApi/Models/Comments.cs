@@ -1,7 +1,10 @@
-﻿namespace MookApi.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace MookApi.Models
 {
     public class Comments : DataInserter
     {
+        [Key]
         public int CommentID { get; set; }
         public int StudentID { get; set; }
         public int BookID { get; set; }

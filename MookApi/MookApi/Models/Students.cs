@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MookApi.Models
 {
     public class Students : DataInserter
     {
+        [Key]
         public int StudentID { get; set; }
         public int UserID { get; set; }
         public string StudentName { get; set; }
@@ -12,7 +14,7 @@ namespace MookApi.Models
 
         public Admins Admins { get; set; }
         public List<History> Historys { get; set; }
-        public Users Users { get; set; }
+        public Users users { get; set; }
         public List<Comments> Comments { get; set; }
         public List<RequestHeader> RequestHeaders { get; set; }
         //done

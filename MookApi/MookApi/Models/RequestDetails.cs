@@ -1,7 +1,10 @@
-﻿namespace MookApi.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace MookApi.Models
 {
     public class RequestDetails : DataInserter
     {
+        [Key]
         public int RequestDetailID { get; set; }
         public int RequestHeaderID { get; set; }
         public int BookID { get; set; }

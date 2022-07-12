@@ -1,7 +1,10 @@
-﻿namespace MookApi.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace MookApi.Models
 {
     public class History : DataInserter
     {
+        [Key]
         public int HistoryID { get; set; }
         public int AdminID { get; set; }
         public int StudentID { get; set; }
