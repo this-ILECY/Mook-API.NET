@@ -12,8 +12,10 @@ namespace MookApi.Models
         public string StudentSSID { get; set; }
         public string StudentUniversityID { get; set; }
         public int SpamCount { get; set; }
+        public bool IsSuspended { get; set; }
+        public bool IsBlocked { get; set; }
         public int reportPoint { get; set; }
-        public Boolean IsSpam { get; set; }
+        public bool IsSpam { get; set; }
 
         public Admins Admins { get; set; }
         public List<History> Historys { get; set; }

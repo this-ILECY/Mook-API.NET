@@ -12,13 +12,11 @@ namespace MookApi.Models
         public int BookRatingCount { get; set; }
         public string BookDescription { get; set; }
 
-        public List<Authors> Authors { get; set; }
         public List<Publishers> Publishers { get; set; }
         public Admins Admins { get; set; }
         public List<RequestDetails> RequestDetails { get; set; }
         public List<Comments> Comments { get; set; }
 
-        public List<BookAuthors> bookAuthors { get; set; }
         public List<BookPublishers> BookPublishers { get; set; }
         //done
     }

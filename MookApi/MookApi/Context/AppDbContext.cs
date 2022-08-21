@@ -12,9 +12,7 @@ namespace MookApi.Context
         }
 
         public DbSet<Admins> Admins { get; set; }
-        public DbSet<Authors> Authors { get; set; }
         public DbSet<Books> Books { get; set; }
-        public DbSet<BookAuthors> BookAuthors { get; set; }
         public DbSet<BookPublishers> BookPublishers { get; set; }  
         public DbSet<Comments> Comments { get; set; }
         public DbSet<History> History { get; set; }
@@ -29,7 +27,6 @@ namespace MookApi.Context
         {
             base.OnModelCreating(builder);
 
-            builder.Entity<Authors>().HasOne(b => b.AdminsFk).WithMany(d => d.AuthorsFk).HasForeignKey("AdminID").OnDelete(DeleteBehavior.Restrict);
             builder.Entity<History>().HasOne(c => c.students).WithMany(d => d.Historys).HasForeignKey("StudentID").OnDelete(DeleteBehavior.Restrict);
             builder.Entity<History>().HasOne(c => c.adminFk).WithMany(d => d.HistoryFk).HasForeignKey("AcceptedAdminID").OnDelete(DeleteBehavior.Restrict);
             builder.Entity<Comments>().HasOne(c => c.Students).WithMany(d => d.Comments).HasForeignKey("StudentID").OnDelete(DeleteBehavior.Restrict);
@@ -43,8 +40,6 @@ namespace MookApi.Context
             builder.Entity<Publishers>().HasOne(c => c.Admins).WithMany(c => c.PublishersFk).HasForeignKey("AcceptedAdminID").OnDelete(DeleteBehavior.Restrict);
             builder.Entity<Books>().HasOne(c => c.Admins).WithMany(c => c.BooksFk).HasForeignKey("AcceptedAdminID").OnDelete(DeleteBehavior.Restrict);
             builder.Entity<RequestHeader>().HasOne(c => c.Admins).WithMany(c => c.RequestHeaderFk).HasForeignKey("AcceptedAdminID").OnDelete(DeleteBehavior.Restrict);
-            builder.Entity<BookAuthors>().HasOne(c => c.authors).WithMany(c => c.BookAuthors).HasForeignKey("AuthorID").OnDelete(DeleteBehavior.Restrict);
-            builder.Entity<BookAuthors>().HasOne(c => c.books).WithMany(c => c.bookAuthors).HasForeignKey("BookID").OnDelete(DeleteBehavior.Restrict);
             builder.Entity<BookPublishers>().HasOne(c => c.publishers).WithMany().HasForeignKey("PublisherID").OnDelete(DeleteBehavior.NoAction);
             builder.Entity<BookPublishers>().HasOne(c => c.books).WithMany(c => c.BookPublishers).HasForeignKey("BookID").OnDelete(DeleteBehavior.NoAction);
             builder.Entity<RequestDetails>().HasOne(c=>c.Books).WithMany(c=> c.RequestDetails).HasForeignKey("BookID").OnDelete(DeleteBehavior.Restrict);
