@@ -12,6 +12,7 @@ namespace MookApi.Models
         public string ColumnName { get; set; }
         public int TableID { get; set; }
         public int Date { get; set; }
+        public  string HistoryDescription { get; set; }
 
         public Admins adminFk { get; set; }
         public Students students { get; set; }
