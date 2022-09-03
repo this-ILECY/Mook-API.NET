@@ -11,6 +11,7 @@ namespace MookApi.Models
         public float BookRating { get; set; }
         public int BookRatingCount { get; set; }
         public string BookDescription { get; set; }
+        public string IsAvailable { get; set;}
 
         public List<Publishers> Publishers { get; set; }
         public Admins Admins { get; set; }
