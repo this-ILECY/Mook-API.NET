@@ -13,6 +13,7 @@ namespace MookApi.Models
         public string StudentUniversityID { get; set; }
         public int SpamCount { get; set; }
         public bool IsSuspended { get; set; }
+        public IsRegistered {get; set;}
         public bool IsBlocked { get; set; }
         public int reportPoint { get; set; }
         public bool IsSpam { get; set; }
