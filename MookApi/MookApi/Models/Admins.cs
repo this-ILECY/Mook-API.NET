@@ -10,7 +10,6 @@ namespace MookApi.Models
 
         public List<History> HistoryFk { get; set; }
         public List<Students> StudentsFk { get; set; }
-        public List<Publishers> PublishersFk { get; set; }
         public List<Books> BooksFk { get; set; }
         public List<RequestHeader> RequestHeaderFk { get; set; }
         public List<Comments> CommentsFk { get; set; }

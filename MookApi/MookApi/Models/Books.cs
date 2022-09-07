@@ -14,12 +14,10 @@ namespace MookApi.Models
         public string IsAvailable { get; set;}
         public Boolean IsDamaged {get; set;}
 
-        public List<Publishers> Publishers { get; set; }
         public Admins Admins { get; set; }
         public List<RequestDetails> RequestDetails { get; set; }
         public List<Comments> Comments { get; set; }
 
-        public List<BookPublishers> BookPublishers { get; set; }
         //done
     }
 }
