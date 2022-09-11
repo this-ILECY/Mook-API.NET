@@ -31,16 +31,17 @@ namespace MookApi.Controllers
 
             var type = Assembly.GetExecutingAssembly().GetTypes().FirstOrDefault(c => c.Name == "History");
 
-            var dbSet = _context.GetType().GetMethod("Set").MakeGenericMethod(type).Invoke(_context, null);
-
-            //using(IDbConnection db =  new SqlConnection(cn))
-            //{
-            //    string sql = "select * from history";
-            //    var allEvents = cn.Query<EventDto>(sql);
-            //    history = db.Query<History>(sql).ToList();
-            //}
+            var dbSet = _context.GetType().GetMember("DbSet");
 
             return Ok();
+        }
+        public enum DbSetName
+        {
+            Admin,
+            Book,
+            BookToBuy,
+            Comment,
+            History
         }
     }
 }
