@@ -25,9 +25,10 @@ namespace MookApi.Context
         {
             base.OnModelCreating(builder);
 
-            builder.Entity<History>().HasOne(c => c.students).WithMany(d => d.Historys).HasForeignKey("StudentID").OnDelete(DeleteBehavior.Restrict);
+            builder.Entity<History>().HasOne(c => c.students).WithMany(d => d.Histories).HasForeignKey("StudentID").OnDelete(DeleteBehavior.Restrict);
             builder.Entity<History>().HasOne(c => c.adminFk).WithMany(d => d.HistoryFk).HasForeignKey("AcceptedAdminID").OnDelete(DeleteBehavior.Restrict);
             builder.Entity<Comments>().HasOne(c => c.Students).WithMany(d => d.Comments).HasForeignKey("StudentID").OnDelete(DeleteBehavior.Restrict);
+            builder.Entity<BookToBuy>().HasOne(c => c.Students).WithMany(c => c.BooksTobuy).HasForeignKey("StudentID").OnDelete(DeleteBehavior.Restrict);
             builder.Entity<RequestHeader>().HasOne(c => c.students).WithMany(d => d.RequestHeaders).HasForeignKey("StudentID").OnDelete(DeleteBehavior.Restrict);
             builder.Entity<Students>().HasOne(c => c.Admins).WithMany(d => d.StudentsFk).HasForeignKey("AcceptedAdminID").OnDelete(DeleteBehavior.Restrict);
             builder.Entity<Comments>().HasOne(c => c.Admins).WithMany(c => c.CommentsFk).HasForeignKey("AcceptedAdminID").OnDelete(DeleteBehavior.Restrict);
@@ -36,9 +37,8 @@ namespace MookApi.Context
             builder.Entity<Admins>().HasOne(b => b.UsersFk).WithOne(c => c.Admins).HasForeignKey("Admins").OnDelete(DeleteBehavior.Restrict);
             builder.Entity<Books>().HasOne(c => c.Admins).WithMany(c => c.BooksFk).HasForeignKey("AcceptedAdminID").OnDelete(DeleteBehavior.Restrict);
             builder.Entity<RequestHeader>().HasOne(c => c.Admins).WithMany(c => c.RequestHeaderFk).HasForeignKey("AcceptedAdminID").OnDelete(DeleteBehavior.Restrict);
-            builder.Entity<RequestDetails>().HasOne(c=>c.Books).WithMany(c=> c.RequestDetails).HasForeignKey("BookID").OnDelete(DeleteBehavior.Restrict);
-            builder.Entity<RequestDetails>().HasOne(c=>c.RequestHeader).WithMany(c=> c.RequestDetails).HasForeignKey("RequestHeaderID").OnDelete(DeleteBehavior.Restrict);
+            builder.Entity<RequestDetails>().HasOne(c => c.Books).WithMany(c => c.RequestDetails).HasForeignKey("BookID").OnDelete(DeleteBehavior.Restrict);
+            builder.Entity<RequestDetails>().HasOne(c => c.RequestHeader).WithMany(c => c.RequestDetails).HasForeignKey("RequestHeaderID").OnDelete(DeleteBehavior.Restrict);
         }
-
     }
 }

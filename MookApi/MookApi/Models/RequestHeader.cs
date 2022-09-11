@@ -6,7 +6,6 @@ namespace MookApi.Models
     {
         [Key]
         public int RequestID { get; set; }
-        public int StudentID { get; set; }
         public string RequestAcceptedDate { get; set; }
         public Boolean IsAccepted { get; set; }
         public string RequestFinishedDate { get; set; }

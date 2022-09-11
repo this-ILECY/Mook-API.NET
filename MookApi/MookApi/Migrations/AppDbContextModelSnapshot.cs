@@ -22,36 +22,6 @@ namespace MookApi.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("AuthorsBooks", b =>
-                {
-                    b.Property<int>("AuthorsAuthorID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("BooksBookID")
-                        .HasColumnType("int");
-
-                    b.HasKey("AuthorsAuthorID", "BooksBookID");
-
-                    b.HasIndex("BooksBookID");
-
-                    b.ToTable("AuthorsBooks");
-                });
-
-            modelBuilder.Entity("BooksPublishers", b =>
-                {
-                    b.Property<int>("BooksBookID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PublishersPublisherID")
-                        .HasColumnType("int");
-
-                    b.HasKey("BooksBookID", "PublishersPublisherID");
-
-                    b.HasIndex("PublishersPublisherID");
-
-                    b.ToTable("BooksPublishers");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<long>", b =>
                 {
                     b.Property<int>("Id")
@@ -195,95 +165,6 @@ namespace MookApi.Migrations
                     b.ToTable("Admins");
                 });
 
-            modelBuilder.Entity("MookApi.Models.Authors", b =>
-                {
-                    b.Property<int>("AuthorID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AuthorID"), 1L, 1);
-
-                    b.Property<int>("AcceptedAdminID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("AdminID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("AuthorName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CreatedDate")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UpdateDate")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.HasKey("AuthorID");
-
-                    b.HasIndex("AdminID");
-
-                    b.ToTable("Authors");
-                });
-
-            modelBuilder.Entity("MookApi.Models.BookAuthors", b =>
-                {
-                    b.Property<int>("BookAuthorsID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookAuthorsID"), 1L, 1);
-
-                    b.Property<int>("AuthorID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("BookID")
-                        .HasColumnType("int");
-
-                    b.HasKey("BookAuthorsID");
-
-                    b.HasIndex("AuthorID");
-
-                    b.HasIndex("BookID");
-
-                    b.ToTable("BookAuthors");
-                });
-
-            modelBuilder.Entity("MookApi.Models.BookPublishers", b =>
-                {
-                    b.Property<int>("BookPublishersID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookPublishersID"), 1L, 1);
-
-                    b.Property<int>("BookID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PublisherID")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("PublishersPublisherID")
-                        .HasColumnType("int");
-
-                    b.HasKey("BookPublishersID");
-
-                    b.HasIndex("BookID");
-
-                    b.HasIndex("PublisherID");
-
-                    b.HasIndex("PublishersPublisherID");
-
-                    b.ToTable("BookPublishers");
-                });
-
             modelBuilder.Entity("MookApi.Models.Books", b =>
                 {
                     b.Property<int>("BookID")
@@ -317,6 +198,13 @@ namespace MookApi.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
+                    b.Property<string>("IsAvailable")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDamaged")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -330,6 +218,52 @@ namespace MookApi.Migrations
                     b.HasIndex("AcceptedAdminID");
 
                     b.ToTable("Books");
+                });
+
+            modelBuilder.Entity("MookApi.Models.BookToBuy", b =>
+                {
+                    b.Property<int>("bookToBuyId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("bookToBuyId"), 1L, 1);
+
+                    b.Property<int>("AcceptedAdminID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedDate")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("StudentID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdateDate")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("bookAuthor")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("bookName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("bookPublisher")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("bookToBuyId");
+
+                    b.HasIndex("StudentID");
+
+                    b.ToTable("BookToBuy");
                 });
 
             modelBuilder.Entity("MookApi.Models.Comments", b =>
@@ -371,6 +305,9 @@ namespace MookApi.Migrations
                     b.Property<int>("FatherID")
                         .HasColumnType("int");
 
+                    b.Property<bool>("IsAdminAccepted")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -404,8 +341,9 @@ namespace MookApi.Migrations
                     b.Property<int>("AcceptedAdminID")
                         .HasColumnType("int");
 
-                    b.Property<int>("AdminID")
-                        .HasColumnType("int");
+                    b.Property<string>("ColumnChanged")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ColumnName")
                         .IsRequired()
@@ -444,49 +382,6 @@ namespace MookApi.Migrations
                     b.HasIndex("StudentID");
 
                     b.ToTable("History");
-                });
-
-            modelBuilder.Entity("MookApi.Models.Publishers", b =>
-                {
-                    b.Property<int>("PublisherID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PublisherID"), 1L, 1);
-
-                    b.Property<int>("AcceptedAdminID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CreatedDate")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("PublisherName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PublisherPhone")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UpdateDate")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.Property<string>("publisherAddress")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("PublisherID");
-
-                    b.HasIndex("AcceptedAdminID");
-
-                    b.ToTable("Publishers");
                 });
 
             modelBuilder.Entity("MookApi.Models.RequestDetails", b =>
@@ -553,6 +448,9 @@ namespace MookApi.Migrations
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
+
+                    b.Property<int>("DelayDays")
+                        .HasColumnType("int");
 
                     b.Property<bool>("IsAccepted")
                         .HasColumnType("bit");
@@ -641,8 +539,23 @@ namespace MookApi.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
+                    b.Property<bool>("IsBlocked")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
+
+                    b.Property<bool>("IsRegistered")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsSpam")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsSuspended")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("SpamCount")
+                        .HasColumnType("int");
 
                     b.Property<string>("StudentName")
                         .IsRequired()
@@ -652,15 +565,16 @@ namespace MookApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("StudentUniversityID")
-                        .HasColumnType("int");
+                    b.Property<string>("StudentUniversityID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UpdateDate")
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<int>("UserID")
+                    b.Property<int>("reportPoint")
                         .HasColumnType("int");
 
                     b.Property<long?>("usersId")
@@ -755,36 +669,6 @@ namespace MookApi.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("AuthorsBooks", b =>
-                {
-                    b.HasOne("MookApi.Models.Authors", null)
-                        .WithMany()
-                        .HasForeignKey("AuthorsAuthorID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MookApi.Models.Books", null)
-                        .WithMany()
-                        .HasForeignKey("BooksBookID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("BooksPublishers", b =>
-                {
-                    b.HasOne("MookApi.Models.Books", null)
-                        .WithMany()
-                        .HasForeignKey("BooksBookID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MookApi.Models.Publishers", null)
-                        .WithMany()
-                        .HasForeignKey("PublishersPublisherID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<long>", b =>
                 {
                     b.HasOne("MookApi.Models.Roles", null)
@@ -846,59 +730,6 @@ namespace MookApi.Migrations
                     b.Navigation("UsersFk");
                 });
 
-            modelBuilder.Entity("MookApi.Models.Authors", b =>
-                {
-                    b.HasOne("MookApi.Models.Admins", "AdminsFk")
-                        .WithMany("AuthorsFk")
-                        .HasForeignKey("AdminID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("AdminsFk");
-                });
-
-            modelBuilder.Entity("MookApi.Models.BookAuthors", b =>
-                {
-                    b.HasOne("MookApi.Models.Authors", "authors")
-                        .WithMany("BookAuthors")
-                        .HasForeignKey("AuthorID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("MookApi.Models.Books", "books")
-                        .WithMany("bookAuthors")
-                        .HasForeignKey("BookID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("authors");
-
-                    b.Navigation("books");
-                });
-
-            modelBuilder.Entity("MookApi.Models.BookPublishers", b =>
-                {
-                    b.HasOne("MookApi.Models.Books", "books")
-                        .WithMany("BookPublishers")
-                        .HasForeignKey("BookID")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("MookApi.Models.Publishers", "publishers")
-                        .WithMany()
-                        .HasForeignKey("PublisherID")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("MookApi.Models.Publishers", null)
-                        .WithMany("BookPublishers")
-                        .HasForeignKey("PublishersPublisherID");
-
-                    b.Navigation("books");
-
-                    b.Navigation("publishers");
-                });
-
             modelBuilder.Entity("MookApi.Models.Books", b =>
                 {
                     b.HasOne("MookApi.Models.Admins", "Admins")
@@ -908,6 +739,17 @@ namespace MookApi.Migrations
                         .IsRequired();
 
                     b.Navigation("Admins");
+                });
+
+            modelBuilder.Entity("MookApi.Models.BookToBuy", b =>
+                {
+                    b.HasOne("MookApi.Models.Students", "Students")
+                        .WithMany("BooksTobuy")
+                        .HasForeignKey("StudentID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Students");
                 });
 
             modelBuilder.Entity("MookApi.Models.Comments", b =>
@@ -946,7 +788,7 @@ namespace MookApi.Migrations
                         .IsRequired();
 
                     b.HasOne("MookApi.Models.Students", "students")
-                        .WithMany("Historys")
+                        .WithMany("Histories")
                         .HasForeignKey("StudentID")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -954,17 +796,6 @@ namespace MookApi.Migrations
                     b.Navigation("adminFk");
 
                     b.Navigation("students");
-                });
-
-            modelBuilder.Entity("MookApi.Models.Publishers", b =>
-                {
-                    b.HasOne("MookApi.Models.Admins", "Admins")
-                        .WithMany("PublishersFk")
-                        .HasForeignKey("AcceptedAdminID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Admins");
                 });
 
             modelBuilder.Entity("MookApi.Models.RequestDetails", b =>
@@ -1025,40 +856,22 @@ namespace MookApi.Migrations
 
             modelBuilder.Entity("MookApi.Models.Admins", b =>
                 {
-                    b.Navigation("AuthorsFk");
-
                     b.Navigation("BooksFk");
 
                     b.Navigation("CommentsFk");
 
                     b.Navigation("HistoryFk");
 
-                    b.Navigation("PublishersFk");
-
                     b.Navigation("RequestHeaderFk");
 
                     b.Navigation("StudentsFk");
                 });
 
-            modelBuilder.Entity("MookApi.Models.Authors", b =>
-                {
-                    b.Navigation("BookAuthors");
-                });
-
             modelBuilder.Entity("MookApi.Models.Books", b =>
                 {
-                    b.Navigation("BookPublishers");
-
                     b.Navigation("Comments");
 
                     b.Navigation("RequestDetails");
-
-                    b.Navigation("bookAuthors");
-                });
-
-            modelBuilder.Entity("MookApi.Models.Publishers", b =>
-                {
-                    b.Navigation("BookPublishers");
                 });
 
             modelBuilder.Entity("MookApi.Models.RequestHeader", b =>
@@ -1068,9 +881,11 @@ namespace MookApi.Migrations
 
             modelBuilder.Entity("MookApi.Models.Students", b =>
                 {
+                    b.Navigation("BooksTobuy");
+
                     b.Navigation("Comments");
 
-                    b.Navigation("Historys");
+                    b.Navigation("Histories");
 
                     b.Navigation("RequestHeaders");
                 });
