@@ -10,6 +10,14 @@ using System.Reflection;
 
 namespace MookApi.Controllers
 {
+    public static class MyExtensions
+    {
+        public static IQueryable<object> Set(this AppDbContext _context, Type t)
+        {
+            return (IQueryable<object>)_context.GetType().GetMethod("Set").MakeGenericMethod(t).Invoke(_context, null);
+        }
+    }
+
     public class HistoryController : ControllerBase
     {
 
@@ -31,7 +39,7 @@ namespace MookApi.Controllers
 
             var type = Assembly.GetExecutingAssembly().GetTypes().FirstOrDefault(c => c.Name == "History");
 
-            var dbSet = _context.GetType().GetMember("DbSet");
+            var db = MyExtensions.Set(_context, type);
 
             return Ok();
         }
@@ -43,5 +51,8 @@ namespace MookApi.Controllers
             Comment,
             History
         }
+
+
+        
     }
 }
