@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
 
 namespace MookApi.Models
 {
@@ -17,6 +19,8 @@ namespace MookApi.Models
         public int reportPoint { get; set; }
         public bool IsSpam { get; set; }
 
+        [JsonIgnore]
+        [IgnoreDataMember]
         public Admins Admins { get; set; }
         public List<History> Histories { get; set; }
         public List<BookToBuy> BooksTobuy { get; set; }

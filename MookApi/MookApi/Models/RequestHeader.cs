@@ -6,12 +6,12 @@ namespace MookApi.Models
     {
         [Key]
         public int RequestID { get; set; }
-        public string RequestAcceptedDate { get; set; }
+        public string? RequestAcceptedDate { get; set; }
         public Boolean IsAccepted { get; set; }
-        public string RequestFinishedDate { get; set; }
+        public string? RequestFinishedDate { get; set; }
         public int IsDelayed { get; set; }
-        public int DelayDays { get; set; }
-        public string RequestDecription { get; set; }
+        public int? DelayDays { get; set; }
+        public string? RequestDecription { get; set; }
 
         public Admins Admins { get; set; }
         public Students students { get; set; }

@@ -1,10 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using MookApi.Context;
-using MookApi.Models;
+﻿using Microsoft.AspNetCore.Mvc;
 using MookApi.Service;
 using MookApi.ViewModel;
-using System.Linq;
 
 namespace MookApi.Controllers
 {
@@ -19,46 +15,39 @@ namespace MookApi.Controllers
             _service = service;
         }
 
-
         [HttpGet]
-        // GET: CommentController
         public ActionResult<List<CommentViewModel>> CommentList()
         {
             IEnumerable<CommentViewModel> comment = new List<CommentViewModel>();
             comment = _service.CommentList();
 
-            return Ok();
+            if (comment != null) return Ok(comment);
+            else return BadRequest();
         }
-
-        //// GET: CommentController/Details/5
-        //public ActionResult Details(int CommentID)
-        //{
-        //    return View();
-        //}
 
         [HttpPost]
-        // GET: CommentController/Create
-        public ActionResult Create(CommentViewModel commentViewModel)
+        public ActionResult Create([FromBody]CommentViewModel comments)
         {
-            return Ok();
+            bool IsCreated = _service.create(comments);
+            if (IsCreated) return Ok(IsCreated);
+            else return BadRequest();
         }
 
-
-        // GET: CommentController/Edit/5
         [HttpPut]
-        public ActionResult Edit(CommentViewModel commentViewModel)
+        public ActionResult Edit([FromBody]CommentViewModel comments)
         {
-            return Ok();
+            bool IsEdited = _service.update(comments);
+            if (IsEdited) return Ok(IsEdited);
+            else return BadRequest();
         }
 
-
-        // GET: CommentController/Delete/5
         [HttpDelete]
         public ActionResult Delete(int CommentID)
         {
-            return Ok();
+            bool IsDeleted = _service.delete(CommentID);
+            if (IsDeleted) return Ok(IsDeleted);
+            else return BadRequest(IsDeleted);
         }
-
 
     }
 }

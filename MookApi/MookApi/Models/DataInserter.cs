@@ -4,11 +4,11 @@ namespace MookApi.Models
 {
     public class DataInserter
     {
-        public int AcceptedAdminID { get; set; }
+        public int? AcceptedAdminID { get; set; }
         [MaxLength(20)]
         public string CreatedDate { get; set; }
         [MaxLength(20)]
-        public string UpdateDate{ get; set; }
+        public string? UpdateDate{ get; set; }
         public Boolean IsDeleted{ get; set; }
     }
 }

@@ -16,69 +16,151 @@ namespace MookApi.Service
         public IEnumerable<CommentViewModel> CommentList()
         {
 
-            List<Comments> comments =
-                _context.Comments.Select(c => new Comments()
+            List<CommentViewModel> commentViewModels = new List<CommentViewModel>();
+            List<Comments> comments = new List<Comments>();
+            comments = _context.Comments.Select(c => new Comments()
+            {
+                UpdateDate = c.UpdateDate,
+                IsDeleted = c.IsDeleted,
+                AcceptedAdminID = c.AcceptedAdminID,
+                Admins = c.Admins,
+                Books = c.Books,
+                CommentContent = c.CommentContent,
+                CommentDislike = c.CommentDislike,
+                CommentFlag = c.CommentFlag,
+                CommentHeader = c.CommentHeader,
+                CommentID = c.CommentID,
+                CommentLike = c.CommentLike,
+                CreatedDate = c.CreatedDate,
+                FatherID = c.FatherID,
+                IsAdminAccepted = c.IsAdminAccepted,
+                Students = c.Students
+            }).Where(c => c.CommentFlag == true).ToList();
+
+            commentViewModels = comments.Select(c => new CommentViewModel()
+            {
+                student = c.Students,
+                IsAdminAccepted = c.IsAdminAccepted,
+                book = c.Books,
+                commentContent = c.CommentContent,
+                commentHeader = c.CommentHeader,
+                CommentID = c.CommentID,
+                createdDate = c.CreatedDate,
+                AdminID = c.Admins.AdminID
+            }).ToList();
+
+
+            return commentViewModels;
+        }
+
+        public bool delete(int commentID)
+        {
+            try
+            {
+                Comments comments = new Comments();
+                comments = _context.Comments.Select(c => new Comments()
                 {
-                    CommentID = c.CommentID,
-                    FatherID = c.FatherID,
-                    CommentContent = c.CommentContent,
-                    Students = c.Students,
+                    UpdateDate = c.UpdateDate,
+                    IsDeleted = c.IsDeleted,
                     AcceptedAdminID = c.AcceptedAdminID,
                     Admins = c.Admins,
                     Books = c.Books,
+                    CommentContent = c.CommentContent,
                     CommentDislike = c.CommentDislike,
                     CommentFlag = c.CommentFlag,
                     CommentHeader = c.CommentHeader,
+                    CommentID = c.CommentID,
                     CommentLike = c.CommentLike,
                     CreatedDate = c.CreatedDate,
+                    FatherID = c.FatherID,
                     IsAdminAccepted = c.IsAdminAccepted,
-                    IsDeleted = c.IsDeleted,
-                    UpdateDate = c.UpdateDate
-                }).ToList();
+                    Students = c.Students
+                }).Where(c => c.CommentID == commentID).FirstOrDefault();
 
-            IEnumerable<Students> students =
-                _context.Students.Select(c => new Students()
+                if (comments != null)
                 {
-                    StudentID = c.StudentID,
-                    StudentName = c.StudentName,
-                    AcceptedAdminID = c.AcceptedAdminID,
-                    Admins = c.Admins,
-                    BooksTobuy = c.BooksTobuy,
-                    Comments = c.Comments,
-                    CreatedDate = c.CreatedDate,
-                    Histories = c.Histories,
-                    IsBlocked = c.IsBlocked,
-                    IsDeleted = c.IsDeleted,
-                    IsRegistered = c.IsRegistered,
-                    IsSpam = c.IsSpam,
-                    IsSuspended = c.IsSuspended,
-                    reportPoint = c.reportPoint,
-                    RequestHeaders = c.RequestHeaders,
-                    SpamCount = c.SpamCount,
-                    StudentSSID = c.StudentSSID,
-                    StudentUniversityID = c.StudentUniversityID,
-                    UpdateDate = c.UpdateDate,
-                    users = c.users
-                }).ToList().Where(x => comments.Any(s => s.Students.StudentID == x.StudentID));
+                    comments.IsDeleted = true;
 
+                    _context.Comments.Update(comments);
+                    _context.SaveChanges();
 
-            IEnumerable<CommentViewModel> commentViewModel = new List<CommentViewModel>();
-
-            foreach (var item in comments)
-            {
-                commentViewModel.Append(new CommentViewModel()
+                    return true;
+                }
+                else
                 {
-                    bookID = item.Books.BookID,
-                    commentBody = item.CommentContent,
-                    commentHeader = item.CommentHeader,
-                    CommentID = item.CommentID,
-                    createdDate = item.CreatedDate,
-                    IsAdminAccepted = item.IsAdminAccepted,
-                    student = students.Where(c=> item.Students.StudentID == c.StudentID).FirstOrDefault()
-                });
+                    return false;
+                }
             }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
 
-            return commentViewModel;
+        public bool create(CommentViewModel commentViewModel)
+        {
+
+            try
+            {
+                Comments comments = new Comments()
+                {
+                    IsDeleted = false,
+                    AcceptedAdminID = 0,
+                    FatherID = 0,
+                    CommentLike = 0,
+                    CommentDislike = 0,
+                    CommentFlag = false,
+                    IsAdminAccepted = commentViewModel.IsAdminAccepted,
+                    UpdateDate = commentViewModel.createdDate,
+                    CreatedDate = commentViewModel.createdDate,
+                    CommentContent = commentViewModel.commentContent,
+                    CommentHeader = commentViewModel.commentHeader,
+                    Admins = _context.Admins.FirstOrDefault(c => c.AdminID == commentViewModel.AdminID),
+                    Books = _context.Books.FirstOrDefault(c => c.BookID == commentViewModel.book.BookID),
+                    Students = _context.Students.FirstOrDefault(c => c.StudentID == commentViewModel.student.StudentID)
+                };
+
+                _context.Comments.Add(comments);
+                var res = _context.SaveChanges();
+                if (res == 1) return true;
+                else return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public bool update(CommentViewModel commentViewModel)
+        {
+            try
+            {
+                Comments comments = new Comments();
+                comments = _context.Comments.FirstOrDefault(c => c.CommentID == commentViewModel.CommentID);
+
+                comments.IsDeleted = false;
+                comments.FatherID = 0;
+                comments.CommentLike = 0;
+                comments.CommentDislike = 0;
+                comments.CommentFlag = false;
+                comments.IsAdminAccepted = commentViewModel.IsAdminAccepted;
+                comments.UpdateDate = commentViewModel.createdDate;
+                comments.CreatedDate = commentViewModel.createdDate;
+                comments.CommentContent = commentViewModel.commentContent;
+                comments.CommentHeader = commentViewModel.commentHeader;
+                comments.Admins = _context.Admins.FirstOrDefault(c => c.AdminID == commentViewModel.AdminID);
+                comments.Books = _context.Books.FirstOrDefault(c => c.BookID == commentViewModel.book.BookID);
+                comments.Students = _context.Students.FirstOrDefault(c => c.StudentID == commentViewModel.student.StudentID);
+
+                _context.Comments.Update(comments);
+                var res = _context.SaveChanges();
+                if (res == 1) return true;
+                else return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }

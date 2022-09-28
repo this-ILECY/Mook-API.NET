@@ -83,9 +83,9 @@ namespace MookApi.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     AdminName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UsersFkId = table.Column<long>(type: "bigint", nullable: true),
-                    AcceptedAdminID = table.Column<int>(type: "int", nullable: false),
+                    AcceptedAdminID = table.Column<int>(type: "int", nullable: true),
                     CreatedDate = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    UpdateDate = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    UpdateDate = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -199,9 +199,9 @@ namespace MookApi.Migrations
                     BookDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsAvailable = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsDamaged = table.Column<bool>(type: "bit", nullable: false),
-                    AcceptedAdminID = table.Column<int>(type: "int", nullable: false),
+                    AcceptedAdminID = table.Column<int>(type: "int", nullable: true),
                     CreatedDate = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    UpdateDate = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    UpdateDate = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -231,9 +231,9 @@ namespace MookApi.Migrations
                     reportPoint = table.Column<int>(type: "int", nullable: false),
                     IsSpam = table.Column<bool>(type: "bit", nullable: false),
                     usersId = table.Column<long>(type: "bigint", nullable: true),
-                    AcceptedAdminID = table.Column<int>(type: "int", nullable: false),
+                    AcceptedAdminID = table.Column<int>(type: "int", nullable: true),
                     CreatedDate = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    UpdateDate = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    UpdateDate = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -263,9 +263,9 @@ namespace MookApi.Migrations
                     bookAuthor = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     bookPublisher = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StudentID = table.Column<int>(type: "int", nullable: false),
-                    AcceptedAdminID = table.Column<int>(type: "int", nullable: false),
+                    AcceptedAdminID = table.Column<int>(type: "int", nullable: true),
                     CreatedDate = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    UpdateDate = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    UpdateDate = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -286,6 +286,7 @@ namespace MookApi.Migrations
                     CommentID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FatherID = table.Column<int>(type: "int", nullable: false),
+                    BookID = table.Column<int>(type: "int", nullable: false),
                     CommentHeader = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CommentContent = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CommentLike = table.Column<float>(type: "real", nullable: false),
@@ -293,10 +294,9 @@ namespace MookApi.Migrations
                     CommentFlag = table.Column<bool>(type: "bit", nullable: false),
                     IsAdminAccepted = table.Column<bool>(type: "bit", nullable: false),
                     StudentID = table.Column<int>(type: "int", nullable: false),
-                    BookID = table.Column<int>(type: "int", nullable: false),
-                    AcceptedAdminID = table.Column<int>(type: "int", nullable: false),
+                    AcceptedAdminID = table.Column<int>(type: "int", nullable: true),
                     CreatedDate = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    UpdateDate = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    UpdateDate = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -334,9 +334,9 @@ namespace MookApi.Migrations
                     TableID = table.Column<int>(type: "int", nullable: false),
                     Date = table.Column<int>(type: "int", nullable: false),
                     StudentID = table.Column<int>(type: "int", nullable: false),
-                    AcceptedAdminID = table.Column<int>(type: "int", nullable: false),
+                    AcceptedAdminID = table.Column<int>(type: "int", nullable: true),
                     CreatedDate = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    UpdateDate = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    UpdateDate = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -362,16 +362,16 @@ namespace MookApi.Migrations
                 {
                     RequestID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    RequestAcceptedDate = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    RequestAcceptedDate = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsAccepted = table.Column<bool>(type: "bit", nullable: false),
-                    RequestFinishedDate = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    RequestFinishedDate = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsDelayed = table.Column<int>(type: "int", nullable: false),
-                    DelayDays = table.Column<int>(type: "int", nullable: false),
-                    RequestDecription = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DelayDays = table.Column<int>(type: "int", nullable: true),
+                    RequestDecription = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     StudentID = table.Column<int>(type: "int", nullable: false),
-                    AcceptedAdminID = table.Column<int>(type: "int", nullable: false),
+                    AcceptedAdminID = table.Column<int>(type: "int", nullable: true),
                     CreatedDate = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    UpdateDate = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    UpdateDate = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -397,14 +397,14 @@ namespace MookApi.Migrations
                 {
                     RequestDetailID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    RequestDetailDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IsDamaged = table.Column<bool>(type: "bit", nullable: false),
-                    IsLost = table.Column<bool>(type: "bit", nullable: false),
+                    RequestDetailDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsDamaged = table.Column<bool>(type: "bit", nullable: true),
+                    IsLost = table.Column<bool>(type: "bit", nullable: true),
                     BookID = table.Column<int>(type: "int", nullable: false),
                     RequestHeaderID = table.Column<int>(type: "int", nullable: false),
-                    AcceptedAdminID = table.Column<int>(type: "int", nullable: false),
+                    AcceptedAdminID = table.Column<int>(type: "int", nullable: true),
                     CreatedDate = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    UpdateDate = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    UpdateDate = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>

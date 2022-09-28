@@ -24,9 +24,11 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 builder.Services.AddScoped<CommentDataService, CommentDataService>();
+builder.Services.AddScoped<RequestDataService, RequestDataService>();
 
 builder.Services.AddDbContext<AppDbContext>(opt=>
  opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 
 var app = builder.Build();
 

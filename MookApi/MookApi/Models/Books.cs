@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
 
 namespace MookApi.Models
 {
@@ -16,6 +18,8 @@ namespace MookApi.Models
         public string IsAvailable { get; set;}
         public Boolean IsDamaged {get; set;}
 
+        [JsonIgnore]
+        [IgnoreDataMember]
         public Admins Admins { get; set; }
         public List<RequestDetails> RequestDetails { get; set; }
         public List<Comments> Comments { get; set; }

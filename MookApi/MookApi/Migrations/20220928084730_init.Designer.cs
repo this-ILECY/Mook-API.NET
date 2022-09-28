@@ -12,7 +12,7 @@ using MookApi.Context;
 namespace MookApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220926111807_init")]
+    [Migration("20220928084730_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -135,7 +135,7 @@ namespace MookApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AdminID"), 1L, 1);
 
-                    b.Property<int>("AcceptedAdminID")
+                    b.Property<int?>("AcceptedAdminID")
                         .HasColumnType("int");
 
                     b.Property<string>("AdminName")
@@ -151,7 +151,6 @@ namespace MookApi.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("UpdateDate")
-                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
@@ -175,7 +174,7 @@ namespace MookApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookID"), 1L, 1);
 
-                    b.Property<int>("AcceptedAdminID")
+                    b.Property<int?>("AcceptedAdminID")
                         .HasColumnType("int");
 
                     b.Property<string>("Author")
@@ -215,7 +214,6 @@ namespace MookApi.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("UpdateDate")
-                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
@@ -238,7 +236,7 @@ namespace MookApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("bookToBuyId"), 1L, 1);
 
-                    b.Property<int>("AcceptedAdminID")
+                    b.Property<int?>("AcceptedAdminID")
                         .HasColumnType("int");
 
                     b.Property<string>("CreatedDate")
@@ -253,7 +251,6 @@ namespace MookApi.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("UpdateDate")
-                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
@@ -284,7 +281,7 @@ namespace MookApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CommentID"), 1L, 1);
 
-                    b.Property<int>("AcceptedAdminID")
+                    b.Property<int?>("AcceptedAdminID")
                         .HasColumnType("int");
 
                     b.Property<int>("BookID")
@@ -325,7 +322,6 @@ namespace MookApi.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("UpdateDate")
-                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
@@ -348,7 +344,7 @@ namespace MookApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HistoryID"), 1L, 1);
 
-                    b.Property<int>("AcceptedAdminID")
+                    b.Property<int?>("AcceptedAdminID")
                         .HasColumnType("int");
 
                     b.Property<string>("ColumnChanged")
@@ -381,7 +377,6 @@ namespace MookApi.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UpdateDate")
-                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
@@ -402,7 +397,7 @@ namespace MookApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RequestDetailID"), 1L, 1);
 
-                    b.Property<int>("AcceptedAdminID")
+                    b.Property<int?>("AcceptedAdminID")
                         .HasColumnType("int");
 
                     b.Property<int>("BookID")
@@ -413,24 +408,22 @@ namespace MookApi.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<bool>("IsDamaged")
+                    b.Property<bool?>("IsDamaged")
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsLost")
+                    b.Property<bool?>("IsLost")
                         .HasColumnType("bit");
 
                     b.Property<string>("RequestDetailDescription")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("RequestHeaderID")
                         .HasColumnType("int");
 
                     b.Property<string>("UpdateDate")
-                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
@@ -451,7 +444,7 @@ namespace MookApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RequestID"), 1L, 1);
 
-                    b.Property<int>("AcceptedAdminID")
+                    b.Property<int?>("AcceptedAdminID")
                         .HasColumnType("int");
 
                     b.Property<string>("CreatedDate")
@@ -459,7 +452,7 @@ namespace MookApi.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<int>("DelayDays")
+                    b.Property<int?>("DelayDays")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsAccepted")
@@ -472,22 +465,18 @@ namespace MookApi.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("RequestAcceptedDate")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RequestDecription")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RequestFinishedDate")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("StudentID")
                         .HasColumnType("int");
 
                     b.Property<string>("UpdateDate")
-                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
@@ -541,7 +530,7 @@ namespace MookApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StudentID"), 1L, 1);
 
-                    b.Property<int>("AcceptedAdminID")
+                    b.Property<int?>("AcceptedAdminID")
                         .HasColumnType("int");
 
                     b.Property<string>("CreatedDate")
@@ -580,7 +569,6 @@ namespace MookApi.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UpdateDate")
-                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
@@ -745,8 +733,7 @@ namespace MookApi.Migrations
                     b.HasOne("MookApi.Models.Admins", "Admins")
                         .WithMany("BooksFk")
                         .HasForeignKey("AcceptedAdminID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Admins");
                 });
@@ -767,8 +754,7 @@ namespace MookApi.Migrations
                     b.HasOne("MookApi.Models.Admins", "Admins")
                         .WithMany("CommentsFk")
                         .HasForeignKey("AcceptedAdminID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("MookApi.Models.Books", "Books")
                         .WithMany("Comments")
@@ -794,8 +780,7 @@ namespace MookApi.Migrations
                     b.HasOne("MookApi.Models.Admins", "adminFk")
                         .WithMany("HistoryFk")
                         .HasForeignKey("AcceptedAdminID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("MookApi.Models.Students", "students")
                         .WithMany("Histories")
@@ -832,8 +817,7 @@ namespace MookApi.Migrations
                     b.HasOne("MookApi.Models.Admins", "Admins")
                         .WithMany("RequestHeaderFk")
                         .HasForeignKey("AcceptedAdminID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("MookApi.Models.Students", "students")
                         .WithMany("RequestHeaders")
@@ -851,8 +835,7 @@ namespace MookApi.Migrations
                     b.HasOne("MookApi.Models.Admins", "Admins")
                         .WithMany("StudentsFk")
                         .HasForeignKey("AcceptedAdminID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("MookApi.Models.Users", "users")
                         .WithOne("students")

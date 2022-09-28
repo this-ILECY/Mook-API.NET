@@ -7,6 +7,7 @@ namespace MookApi.Models
         [Key]
         public int CommentID { get; set; }
         public int FatherID { get; set; }
+        public int BookID { get; set; }
         public string CommentHeader { get; set; }
         public string CommentContent { get; set; }
         public float CommentLike { get; set; }
