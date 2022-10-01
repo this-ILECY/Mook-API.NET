@@ -25,8 +25,9 @@ builder.Services.AddSwaggerGen(c =>
 
 builder.Services.AddScoped<CommentDataService, CommentDataService>();
 builder.Services.AddScoped<RequestDataService, RequestDataService>();
+builder.Services.AddScoped<BookDataService, BookDataService>();
 
-builder.Services.AddDbContext<AppDbContext>(opt=>
+builder.Services.AddDbContext<AppDbContext>(opt =>
  opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
@@ -39,8 +40,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "tenet.Api.1.0.0 v1"));
 }
-
-
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
