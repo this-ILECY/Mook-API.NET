@@ -25,6 +25,7 @@ builder.Services.AddSwaggerGen(c =>
 
 builder.Services.AddScoped<CommentDataService, CommentDataService>();
 builder.Services.AddScoped<RequestDataService, RequestDataService>();
+builder.Services.AddScoped<StudentDataService, StudentDataService>();
 builder.Services.AddScoped<BookDataService, BookDataService>();
 
 builder.Services.AddDbContext<AppDbContext>(opt =>

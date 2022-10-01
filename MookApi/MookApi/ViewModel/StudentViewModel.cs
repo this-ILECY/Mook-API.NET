@@ -9,6 +9,7 @@
         public int SpamCount { get; set; }
         public bool IsSuspended { get; set; }
         public bool IsRegistered { get; set; }
+        public string CreatedDate { get; set; }
         public bool IsBlocked { get; set; }
         public int reportPoint { get; set; }
         public bool IsSpam { get; set; }

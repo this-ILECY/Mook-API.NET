@@ -365,7 +365,7 @@ namespace MookApi.Migrations
                     RequestAcceptedDate = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsAccepted = table.Column<bool>(type: "bit", nullable: false),
                     RequestFinishedDate = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDelayed = table.Column<int>(type: "int", nullable: false),
+                    IsDelayed = table.Column<bool>(type: "bit", nullable: false),
                     DelayDays = table.Column<int>(type: "int", nullable: true),
                     RequestDecription = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     StudentID = table.Column<int>(type: "int", nullable: false),

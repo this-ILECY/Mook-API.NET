@@ -9,7 +9,7 @@ namespace MookApi.Models
         public string? RequestAcceptedDate { get; set; }
         public Boolean IsAccepted { get; set; }
         public string? RequestFinishedDate { get; set; }
-        public int IsDelayed { get; set; }
+        public Boolean IsDelayed { get; set; }
         public int? DelayDays { get; set; }
         public string? RequestDecription { get; set; }
 

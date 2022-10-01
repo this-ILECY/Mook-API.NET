@@ -456,8 +456,8 @@ namespace MookApi.Migrations
                     b.Property<bool>("IsAccepted")
                         .HasColumnType("bit");
 
-                    b.Property<int>("IsDelayed")
-                        .HasColumnType("int");
+                    b.Property<bool>("IsDelayed")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
