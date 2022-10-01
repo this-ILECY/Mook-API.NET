@@ -20,7 +20,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "tenet.Api.1.0.0", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "mook.Api.1.0.0", Version = "v1" });
 });
 
 builder.Services.AddScoped<CommentDataService, CommentDataService>();

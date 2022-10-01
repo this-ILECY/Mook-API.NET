@@ -76,8 +76,6 @@ C:\Users\Mardani.Amirhosein\Desktop\Mook\mook\MookApi\MookApi\MookApi\obj\Debug\
 C:\Users\Mardani.Amirhosein\Desktop\Mook\mook\MookApi\MookApi\MookApi\obj\Debug\net6.0\MookApi.pdb
 C:\Users\Mardani.Amirhosein\Desktop\Mook\mook\MookApi\MookApi\MookApi\obj\Debug\net6.0\MookApi.genruntimeconfig.cache
 C:\Users\Mardani.Amirhosein\Desktop\Mook\mook\MookApi\MookApi\MookApi\obj\Debug\net6.0\MookApi.csproj.AssemblyReference.cache
-C:\Users\Mardani.Amirhosein\Desktop\Mook\mook\MookApi\MookApi\MookApi\bin\Debug\net6.0\AutoMapper.dll
-C:\Users\Amir\Sources\Repos\Mook\MookApi\MookApi\MookApi\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
 C:\Users\Amir\Sources\Repos\Mook\MookApi\MookApi\MookApi\bin\Debug\net6.0\appsettings.Development.json
 C:\Users\Amir\Sources\Repos\Mook\MookApi\MookApi\MookApi\bin\Debug\net6.0\appsettings.json
 C:\Users\Amir\Sources\Repos\Mook\MookApi\MookApi\MookApi\bin\Debug\net6.0\MookApi.exe
@@ -99,6 +97,7 @@ C:\Users\Amir\Sources\Repos\Mook\MookApi\MookApi\MookApi\bin\Debug\net6.0\Micros
 C:\Users\Amir\Sources\Repos\Mook\MookApi\MookApi\MookApi\bin\Debug\net6.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 C:\Users\Amir\Sources\Repos\Mook\MookApi\MookApi\MookApi\bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\Amir\Sources\Repos\Mook\MookApi\MookApi\MookApi\bin\Debug\net6.0\Microsoft.Data.SqlClient.dll
+C:\Users\Amir\Sources\Repos\Mook\MookApi\MookApi\MookApi\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
 C:\Users\Amir\Sources\Repos\Mook\MookApi\MookApi\MookApi\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
 C:\Users\Amir\Sources\Repos\Mook\MookApi\MookApi\MookApi\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll
 C:\Users\Amir\Sources\Repos\Mook\MookApi\MookApi\MookApi\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Relational.dll
