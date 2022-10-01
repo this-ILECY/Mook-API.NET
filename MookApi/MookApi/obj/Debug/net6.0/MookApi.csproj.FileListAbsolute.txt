@@ -82,6 +82,7 @@ C:\Users\Mardani.Amirhosein\Desktop\Mook\mook\MookApi\MookApi\MookApi\bin\Debug\
 C:\Users\Mardani.Amirhosein\Desktop\Mook\mook\MookApi\MookApi\MookApi\bin\Debug\net6.0\MookApi.dll
 C:\Users\Mardani.Amirhosein\Desktop\Mook\mook\MookApi\MookApi\MookApi\bin\Debug\net6.0\ref\MookApi.dll
 C:\Users\Mardani.Amirhosein\Desktop\Mook\mook\MookApi\MookApi\MookApi\bin\Debug\net6.0\MookApi.pdb
+C:\Users\Mardani.Amirhosein\Desktop\Mook\mook\MookApi\MookApi\MookApi\bin\Debug\net6.0\AutoMapper.dll
 C:\Users\Mardani.Amirhosein\Desktop\Mook\mook\MookApi\MookApi\MookApi\bin\Debug\net6.0\Azure.Core.dll
 C:\Users\Mardani.Amirhosein\Desktop\Mook\mook\MookApi\MookApi\MookApi\bin\Debug\net6.0\Azure.Identity.dll
 C:\Users\Mardani.Amirhosein\Desktop\Mook\mook\MookApi\MookApi\MookApi\bin\Debug\net6.0\Azure.Security.KeyVault.Certificates.dll
@@ -151,4 +152,3 @@ C:\Users\Mardani.Amirhosein\Desktop\Mook\mook\MookApi\MookApi\MookApi\obj\Debug\
 C:\Users\Mardani.Amirhosein\Desktop\Mook\mook\MookApi\MookApi\MookApi\obj\Debug\net6.0\MookApi.pdb
 C:\Users\Mardani.Amirhosein\Desktop\Mook\mook\MookApi\MookApi\MookApi\obj\Debug\net6.0\MookApi.genruntimeconfig.cache
 C:\Users\Mardani.Amirhosein\Desktop\Mook\mook\MookApi\MookApi\MookApi\obj\Debug\net6.0\MookApi.csproj.AssemblyReference.cache
-C:\Users\Mardani.Amirhosein\Desktop\Mook\mook\MookApi\MookApi\MookApi\bin\Debug\net6.0\AutoMapper.dll
