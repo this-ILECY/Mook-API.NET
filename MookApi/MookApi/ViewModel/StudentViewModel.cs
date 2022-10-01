@@ -13,5 +13,6 @@
         public bool IsBlocked { get; set; }
         public int reportPoint { get; set; }
         public bool IsSpam { get; set; }
+        
     }
 }

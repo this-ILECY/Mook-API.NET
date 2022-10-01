@@ -25,11 +25,11 @@ namespace MookApi.Controllers
             else return BadRequest();
         }
 
-        [HttpGet]
-        public ActionResult<BookViewModel> getByID([FromHeader]int bookID)
+        [HttpGet("{id}")]
+        public ActionResult<BookViewModel> getByID(int id)
         {
             BookViewModel book = new BookViewModel();
-            book = _service.getByID(bookID);
+            book = _service.getByID(id);
             if (book != null) return Ok(book);
             else return BadRequest();
         }
