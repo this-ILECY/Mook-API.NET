@@ -27,12 +27,26 @@ builder.Services.AddScoped<CommentDataService, CommentDataService>();
 builder.Services.AddScoped<RequestDataService, RequestDataService>();
 builder.Services.AddScoped<StudentDataService, StudentDataService>();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("MyPolicy",
+                      builder =>
+                      {
+                          builder.AllowAnyOrigin()
+                                 .AllowAnyHeader()
+                                 .AllowAnyMethod();
+                      });
+});
+
+
+
 builder.Services.AddDbContext<AppDbContext>(opt=>
  opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
 var app = builder.Build();
 
+app.UseCors("MyPolicy");
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
