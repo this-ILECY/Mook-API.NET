@@ -4,7 +4,8 @@ using MookApi.ViewModel;
 
 namespace MookApi.Controllers
 {
-    [Route("comments")]
+    [Route("api/[controller]")]
+    [ApiController]
     public class CommentController : ControllerBase
     {
 

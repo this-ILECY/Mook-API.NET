@@ -18,11 +18,19 @@ namespace MookApi.Service
             List<RequestHeader> requestHeaders = new List<RequestHeader>();
 
             List<RequestViewModel> requestViewModel = new List<RequestViewModel>();
-            requestViewModel.Select(c => new RequestViewModel()
+            requestViewModel = _context.RequestHeader.Select(c => new RequestViewModel()
             {
-                requestHeader = _context.RequestHeader.FirstOrDefault(),
-                
-            });
+                createdDate = c.CreatedDate,
+                DelayDays = c.DelayDays,
+                IsAccepted = c.IsAccepted,
+                IsDelayed = c.IsDelayed,
+                RequestAcceptedDate = c.RequestAcceptedDate,
+                RequestDecription=c.RequestDecription,
+                requestDetails=c.RequestDetails,
+                RequestFinishedDate=c.RequestFinishedDate,
+                RequestID=c.RequestID,
+                students=c.students
+            }).ToList();
 
             return requestViewModel;
         }

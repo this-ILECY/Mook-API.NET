@@ -4,6 +4,8 @@ using MookApi.Service;
 
 namespace MookApi.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class HistoryController : ControllerBase
     {
 
@@ -12,7 +14,6 @@ namespace MookApi.Controllers
         }
 
         [HttpPost]
-        [Route("index")]
         public ActionResult<History> get([FromBody]string tbName)
         {
 

@@ -5,7 +5,8 @@ using MookApi.ViewModel;
 
 namespace MookApi.Controllers
 {
-    [Route("{cotroller}")]
+    [Route("api/[controller]")]
+    [ApiController]
     public class RequestController : ControllerBase
     {
 
@@ -17,7 +18,7 @@ namespace MookApi.Controllers
 
         // GET: RequestController
         [HttpGet]
-        public ActionResult<List<RequestDataService>> Index()
+        public ActionResult<List<RequestViewModel>> Index()
         {
             List<RequestViewModel> list = new List<RequestViewModel>();
             list = _service.get();
