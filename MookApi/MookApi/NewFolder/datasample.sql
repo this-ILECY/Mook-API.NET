@@ -144,34 +144,7 @@ INSERT INTO [dbo].[Comments]
 
 GO
 
-INSERT INTO [dbo].[RequestHeader]
-           ([RequestAcceptedDate],[IsAccepted],[RequestFinishedDate],[IsDelayed],[DelayDays],[RequestDecription],[StudentID],[AcceptedAdminID],[CreatedDate],[UpdateDate],[IsDeleted])
-     VALUES
-           (null,0,null,0,null,null,5,null,'2012-05-12','2012-05-12',0),
-		   (null,0,null,0,null,null,1,null,'2019-11-08','2019-11-08',0)
-GO
-
-INSERT INTO [dbo].[RequestDetails]
-           ([RequestDetailDescription],[IsDamaged],[IsLost],[BookID],[RequestHeaderID],[AcceptedAdminID],[CreatedDate],[UpdateDate],[IsDeleted])
-     VALUES
-           (null,0,0,1,1,null,'2015-05-12','2015-05-12',0),
-		   (null,0,0,2,1,null,'2015-05-12','2015-05-12',0),
-		   (null,0,0,3,1,null,'2015-05-12','2015-05-12',0),
-		   (null,0,0,4,1,null,'2015-05-12','2015-05-12',0),
-		   (null,0,0,5,2,null,'2015-05-12','2015-05-12',0),
-		   (null,0,0,6,2,null,'2015-05-12','2015-05-12',0),
-		   (null,0,0,7,2,null,'2015-05-12','2015-05-12',0),
-		   (null,0,0,8,2,null,'2015-05-12','2015-05-12',0),
-		   (null,0,0,9,2,null,'2015-05-12','2015-05-12',0)
-GO
-SELECT * FROM AspNetUsers
-SELECT * FROM AspNetRoles
-SELECT * FROM Admins
-SELECT * FROM Students
-SELECT * FROM Books
-SELECT * FROM Comments
-SELECT * FROM RequestHeader
-SELECT * FROM RequestDetails
+Select * from Comments
 
 GO
 
@@ -287,3 +260,19 @@ INSERT INTO [dbo].[RequestDetails]
 GO
 
 SELECT * FROM [RequestDetails]
+
+
+
+
+GO
+
+SELECT * FROM AspNetUsers
+SELECT * FROM AspNetRoles
+SELECT * FROM Admins
+SELECT * FROM Students
+SELECT * FROM Books
+SELECT * FROM Comments
+SELECT * FROM RequestHeader
+SELECT * FROM RequestDetails
+
+GO

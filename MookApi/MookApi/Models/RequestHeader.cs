@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
 
 namespace MookApi.Models
 {
@@ -13,7 +15,11 @@ namespace MookApi.Models
         public int? DelayDays { get; set; }
         public string? RequestDecription { get; set; }
 
+        [JsonIgnore]
+        [IgnoreDataMember]
         public Admins Admins { get; set; }
+        [JsonIgnore]
+        [IgnoreDataMember]
         public Students students { get; set; }
         public List<RequestDetails> RequestDetails { get; set; }
         //done
