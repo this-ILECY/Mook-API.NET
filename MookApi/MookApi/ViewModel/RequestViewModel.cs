@@ -16,4 +16,14 @@ namespace MookApi.ViewModel
         public List<RequestDetails> requestDetails{ get; set; }
         public Students students { get; set; }
     }
+
+    public class RequestDetailViewModel
+    {
+        public int RequestDetailID { get; set; }
+        public int RequestHeaderID { get; set; }
+        public int BookID { get; set; }
+        public string? RequestDetailDescription { get; set; }
+        public Boolean? IsDamaged { get; set; }
+        public Boolean? IsLost { get; set; }
+    }
 }

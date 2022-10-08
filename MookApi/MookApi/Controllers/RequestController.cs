@@ -16,16 +16,60 @@ namespace MookApi.Controllers
             _service = service;
         }
 
-        // GET: RequestController
-        [HttpGet]
+        // GET: RequestController/Create
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+       [HttpGet]
         public ActionResult<List<RequestViewModel>> Index()
         {
             List<RequestViewModel> list = new List<RequestViewModel>();
             list = _service.get();
-
             return Ok(list);
         }
 
+        // GET: RequestController/Edit/5
+        public ActionResult Edit(int id)
+        {
+            return View();
+        }
 
+        // POST: RequestController/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(int id, IFormCollection collection)
+        {
+            try
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        // GET: RequestController/Delete/5
+        public ActionResult Delete(int id)
+        {
+            return View();
+        }
+
+        // POST: RequestController/Delete/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(int id, IFormCollection collection)
+        {
+            try
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
     }
 }

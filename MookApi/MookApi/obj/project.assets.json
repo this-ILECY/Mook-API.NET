@@ -2967,23 +2967,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Mardani.Amirhosein\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\Amir\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Mardani.Amirhosein\\Desktop\\Mook\\mook\\MookApi\\MookApi\\MookApi\\MookApi.csproj",
+      "projectUniqueName": "C:\\Users\\Amir\\Sources\\Repos\\Mook\\MookApi\\MookApi\\MookApi\\MookApi.csproj",
       "projectName": "MookApi",
-      "projectPath": "C:\\Users\\Mardani.Amirhosein\\Desktop\\Mook\\mook\\MookApi\\MookApi\\MookApi\\MookApi.csproj",
-      "packagesPath": "C:\\Users\\Mardani.Amirhosein\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Mardani.Amirhosein\\Desktop\\Mook\\mook\\MookApi\\MookApi\\MookApi\\obj\\",
+      "projectPath": "C:\\Users\\Amir\\Sources\\Repos\\Mook\\MookApi\\MookApi\\MookApi\\MookApi.csproj",
+      "packagesPath": "C:\\Users\\Amir\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Amir\\Sources\\Repos\\Mook\\MookApi\\MookApi\\MookApi\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Mardani.Amirhosein\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Amir\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

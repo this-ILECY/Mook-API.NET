@@ -20,12 +20,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "tenet.Api.1.0.0", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "mook.Api.1.0.0", Version = "v1" });
 });
 
 builder.Services.AddScoped<CommentDataService, CommentDataService>();
 builder.Services.AddScoped<RequestDataService, RequestDataService>();
 builder.Services.AddScoped<StudentDataService, StudentDataService>();
+builder.Services.AddScoped<BookDataService, BookDataService>();
 
 builder.Services.AddCors(options =>
 {
@@ -52,10 +53,9 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseSwaggerUI(c => c.DefaultModelExpandDepth(-2));
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "tenet.Api.1.0.0 v1"));
 }
-
-
 app.UseHttpsRedirection();
 
 app.UseAuthentication();

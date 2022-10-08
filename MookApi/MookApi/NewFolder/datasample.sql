@@ -8,6 +8,10 @@ INSERT INTO [dbo].[AspNetRoles]
 		    (0,'student','STUDENT','kldjehfkajsfgicreiucberwvuygerv')
 GO
 
+SELECT * FROM AspNetRoles
+
+GO
+
 INSERT INTO [dbo].[AspNetUsers]
            ([CreatedDate],[IsActive],[IsDeleted],[UserName],[NormalizedUserName],[Email],[NormalizedEmail],
 		   [EmailConfirmed],[PasswordHash],[SecurityStamp],[ConcurrencyStamp],[PhoneNumber],[PhoneNumberConfirmed],[TwoFactorEnabled],[LockoutEnd],[LockoutEnabled],[AccessFailedCount])
@@ -25,10 +29,17 @@ INSERT INTO [dbo].[AspNetUsers]
 		   ('2022-12-15',1,0,'kiarash','KIARASH','kia@ra.sh','KIA@RA.SH',1,'cjkhgfkcjgwcwehgrfviurhe','cfhckljavhsdjklgv','cjkwfckjghfasd','09134578987',1,'false','2022-12-12',0,0)
 GO
 
+SELECT * FROM AspNetUsers
+
+GO
 INSERT INTO [dbo].[AspNetUserRoles]
            ([UserId],[RoleId])
      VALUES
            (1,1),(2,1),(3,2),(4,2),(5,2)
+
+GO
+
+SELECT * FROM AspNetUserRoles
 
 GO
 
@@ -41,6 +52,9 @@ INSERT INTO [dbo].[Admins]
 
 GO
 
+SELECT * FROM Admins
+
+GO
 
 INSERT INTO [dbo].[Students]
            ([StudentName],[StudentSSID],[StudentUniversityID],[SpamCount],[IsSuspended],[IsRegistered]
@@ -56,6 +70,9 @@ INSERT INTO [dbo].[Students]
 		   (N'فرید فریدی' ,  N'7317864556654',N'874658786656',0   ,0,1,0,25,0,9, 2,'2010-01-12','2020-12-12',0)--reportpoint
 GO
 
+SELECT * FROM Students
+
+GO
 
 INSERT INTO [dbo].[Books]
            ([BookName],[BookPagesCount],[BookRating],[publisher],[Author],[BookRatingCount]
@@ -97,6 +114,9 @@ INSERT INTO [dbo].[Books]
 		   ,N'یکی از جذاب ترین کتابهایی که نمیدونم موضوعش چیه و صرفا برای پر کردن دیتا در دیتابیس آوردم',1,0,1,'2012-04-07','2020-02-21',0)
 GO
 
+SELECT * FROM Books
+
+GO
 
 INSERT INTO [dbo].[Comments]
            ([FatherID],[CommentHeader],[CommentContent],[CommentLike],[CommentDislike],[CommentFlag]
@@ -153,3 +173,117 @@ SELECT * FROM Comments
 SELECT * FROM RequestHeader
 SELECT * FROM RequestDetails
 
+GO
+
+INSERT INTO [dbo].[RequestHeader]
+           ([RequestAcceptedDate],[IsAccepted],[RequestFinishedDate],[IsDelayed],[DelayDays]
+           ,[RequestDecription],[StudentID],[AcceptedAdminID],[CreatedDate],[UpdateDate],[IsDeleted])
+     VALUES
+           ('2015-05-15',0,null,0,null,null,3,1,'2018-11-09','2012-01-05',0),--new
+		   ('2019-07-25',0,null,0,null,null,2,1,'2005-05-15','2005-05-11',0),--new
+		   ('2012-05-11',0,null,0,null,null,2,1,'2002-07-18','2002-02-09',0),--new
+		   ('2011-09-25',0,null,0,null,null,3,1,'2022-11-20','2022-03-18',0),--new
+		   ('2015-05-15',0,null,0,null,null,5,1,'2018-11-09','2012-01-05',0),--new
+		   ('2019-07-25',0,null,0,null,null,5,1,'2005-05-15','2005-05-11',0),--new
+		   ('2012-05-11',0,null,0,null,null,5,1,'2002-07-18','2002-02-09',0),--new
+		   ('2011-09-25',0,null,0,null,null,5,1,'2022-11-20','2022-03-18',0),--new
+		   ('2019-10-11',1,'2012-02-02',1,1,null,6,1,'2014-04-02','2014-05-02',0),--delayed
+		   ('2003-03-20',1,'2012-02-02',1,3,null,3,1,'2000-11-01','2000-04-01',0),--delayed
+		   ('2003-03-20',1,'2012-02-02',1,80,null,3,1,'2000-11-01','2000-04-01',0),--delayed
+		   ('2019-10-11',1,'2012-02-02',1,256,null,6,1,'2014-04-02','2014-05-02',0),--delayed
+		   ('2003-03-20',1,'2012-02-02',1,1,null,3,1,'2000-11-01','2000-04-01',0),--delayed
+		   ('2003-03-20',1,'2012-02-02',1,12,null,7,1,'2000-11-01','2000-04-01',0),--delayed
+		   ('2003-03-20',1,null,0,null,null,2,1,'2000-11-01','2000-04-01',0),
+		   ('2003-03-20',1,null,0,null,null,3,1,'2000-11-01','2000-04-01',0)
+
+GO
+
+SELECT * FROM [RequestHeader] 
+
+GO
+
+INSERT INTO [dbo].[RequestDetails]
+           ([RequestDetailDescription]
+           ,[IsDamaged]
+           ,[IsLost]
+           ,[BookID]
+           ,[RequestHeaderID]
+           ,[AcceptedAdminID]
+           ,[CreatedDate]
+           ,[UpdateDate]
+           ,[IsDeleted])
+     VALUES
+           (null,null,null,2 ,1,null,'2015-05-15','2015-05-15',0),
+		   (null,null,null,2 ,1,null,'2019-07-25','2019-07-25',0),
+		   (null,null,null,3 ,2,null,'2012-05-11','2012-05-11',0),
+		   (null,null,null,4 ,4,null,'2011-09-25','2011-09-25',0),
+		   (null,null,null,5 ,8,null,'2015-05-15','2015-05-15',0),
+		   (null,null,null,6 ,8,null,'2019-07-25','2019-07-25',0),
+		   (null,null,null,7 ,8,null,'2012-05-11','2012-05-11',0),
+		   (null,null,null,8 ,8,null,'2011-09-25','2011-09-25',0),
+		   (null,null,null,9 ,4,null,'2019-10-11','2019-10-11',0),
+		   (null,null,null,10,4,null,'2003-03-20','2003-03-20',0),
+		   (null,null,null,11,1,null,'2003-03-20','2003-03-20',0),
+		   (null,null,null,11,2,null,'2019-10-11','2019-10-11',0),
+		   (null,null,null,12,6,null,'2003-03-20','2003-03-20',0),
+		   (null,null,null,13,6,null,'2019-07-25','2003-03-20',0),
+		   (null,null,null,14,6,null,'2012-05-11','2003-03-20',0),
+		   (null,null,null,15,9,null,'2011-09-25','2003-03-20',0),
+		   (null,null,null,16,9,null,'2015-05-15','2015-05-15',0),
+		   (null,null,null,17,9,null,'2019-07-25','2015-05-15',0),
+		   (null,null,null,2 ,2,null,'2012-05-11','2015-05-15',0),
+		   (null,null,null,2 ,2,null,'2011-09-25','2019-07-25',0),
+		   (null,null,null,3 ,2,null,'2019-07-25','2012-05-11',0),
+		   (null,null,null,4 ,15,null,'2012-05-11','2011-09-25',0),
+		   (null,null,null,5 ,15,null,'2011-09-25','2015-05-15',0),
+		   (null,null,null,6 ,15,null,'2015-05-15','2019-07-25',0),
+		   (null,null,null,7 ,15,null,'2019-07-25','2012-05-11',0),
+		   (null,null,null,8 ,16,null,'2012-05-11','2011-09-25',0),
+		   (null,null,null,9 ,16,null,'2011-09-25','2019-07-25',0),
+		   (null,null,null,10,16,null,'2019-10-11','2015-05-15',0),
+		   (null,null,null,11,16,null,'2003-03-20','2018-11-09',0),
+		   (null,null,null,11,14,null,'2003-03-20','2005-05-15',0),
+		   (null,null,null,12,14,null,'2019-10-11','2002-07-18',0),
+		   (null,null,null,13,14,null,'2003-03-20','2022-11-20',0),
+		   (null,null,null,14,13,null,'2019-07-25','2018-11-09',0),
+		   (null,null,null,15,13,null,'2015-05-15','2005-05-15',0),
+		   (null,null,null,16,13,null,'2018-11-09','2002-07-18',0),
+		   (null,null,null,2 ,12,null,'2015-05-15','2015-05-15',0),
+		   (null,null,null,2 ,12,null,'2019-07-25','2019-07-25',0),
+		   (null,null,null,3 ,2,null,'2012-05-11','2012-05-11',0),
+		   (null,null,null,4 ,12,null,'2011-09-25','2011-09-25',0),
+		   (null,null,null,5 ,12,null,'2015-05-15','2015-05-15',0),
+		   (null,null,null,6 ,11,null,'2019-07-25','2019-07-25',0),
+		   (null,null,null,7 ,11,null,'2012-05-11','2012-05-11',0),
+		   (null,null,null,8 ,11,null,'2011-09-25','2011-09-25',0),
+		   (null,null,null,9 ,11,null,'2019-10-11','2019-10-11',0),
+		   (null,null,null,10,10,null,'2003-03-20','2003-03-20',0),
+		   (null,null,null,11,10,null,'2003-03-20','2003-03-20',0),
+		   (null,null,null,11,10,null,'2019-10-11','2019-10-11',0),
+		   (null,null,null,12,4,null,'2003-03-20','2003-03-20',0),
+		   (null,null,null,13,4,null,'2019-07-25','2003-03-20',0),
+		   (null,null,null,14,4,null,'2012-05-11','2003-03-20',0),
+		   (null,null,null,15,5,null,'2011-09-25','2003-03-20',0),
+		   (null,null,null,16,5,null,'2015-05-15','2015-05-15',0),
+		   (null,null,null,17,5,null,'2019-07-25','2015-05-15',0),
+		   (null,null,null,2 ,2,null,'2012-05-11','2015-05-15',0),
+		   (null,null,null,2 ,2,null,'2011-09-25','2019-07-25',0),
+		   (null,null,null,3 ,6,null,'2019-07-25','2012-05-11',0),
+		   (null,null,null,4 ,6,null,'2012-05-11','2011-09-25',0),
+		   (null,null,null,5 ,6,null,'2011-09-25','2015-05-15',0),
+		   (null,null,null,6 ,6,null,'2015-05-15','2019-07-25',0),
+		   (null,null,null,7 ,6,null,'2019-07-25','2012-05-11',0),
+		   (null,null,null,8 ,3,null,'2012-05-11','2011-09-25',0),
+		   (null,null,null,9 ,3,null,'2011-09-25','2019-07-25',0),
+		   (null,null,null,10,3,null,'2019-10-11','2015-05-15',0),
+		   (null,null,null,11,3,null,'2003-03-20','2018-11-09',0),
+		   (null,null,null,11,3,null,'2003-03-20','2005-05-15',0),
+		   (null,null,null,12,3,null,'2019-10-11','2002-07-18',0),
+		   (null,null,null,13,3,null,'2003-03-20','2022-11-20',0),
+		   (null,null,null,14,1,null,'2019-07-25','2018-11-09',0),
+		   (null,null,null,15,1,null,'2015-05-15','2005-05-15',0),
+		   (null,null,null,16,1,null,'2018-11-09','2002-07-18',0)
+
+GO
+
+SELECT * FROM [RequestDetails]

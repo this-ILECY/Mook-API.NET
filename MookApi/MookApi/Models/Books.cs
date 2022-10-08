@@ -18,6 +18,7 @@ namespace MookApi.Models
         public string IsAvailable { get; set;}
         public Boolean IsDamaged {get; set;}
 
+
         [JsonIgnore]
         [IgnoreDataMember]
         public Admins Admins { get; set; }
