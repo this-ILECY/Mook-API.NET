@@ -18,8 +18,6 @@ namespace MookApi.Models
         [JsonIgnore]
         [IgnoreDataMember]
         public Admins Admins { get; set; }
-        [JsonIgnore]
-        [IgnoreDataMember]
         public Students students { get; set; }
         public List<RequestDetails> RequestDetails { get; set; }
         //done

@@ -37,7 +37,7 @@ namespace MookApi.Context
             builder.Entity<Admins>().HasOne(b => b.UsersFk).WithOne(c => c.Admins).HasForeignKey("Admins").OnDelete(DeleteBehavior.Restrict);
             builder.Entity<Books>().HasOne(c => c.Admins).WithMany(c => c.BooksFk).HasForeignKey("AcceptedAdminID").OnDelete(DeleteBehavior.Restrict);
             builder.Entity<RequestHeader>().HasOne(c => c.Admins).WithMany(c => c.RequestHeaderFk).HasForeignKey("AcceptedAdminID").OnDelete(DeleteBehavior.Restrict);
-            builder.Entity<RequestDetails>().HasMany(c => c.Books).WithOne(c => c.RequestDetails).HasForeignKey("BookID").OnDelete(DeleteBehavior.Restrict);
+            builder.Entity<RequestDetails>().HasOne(c => c.Books).WithMany(c => c.RequestDetails).HasForeignKey("BookID").OnDelete(DeleteBehavior.Restrict);
             builder.Entity<RequestDetails>().HasOne(c => c.RequestHeader).WithMany(c => c.RequestDetails).HasForeignKey("RequestHeaderID").OnDelete(DeleteBehavior.Restrict);
         }
     }

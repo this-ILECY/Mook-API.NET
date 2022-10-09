@@ -1,4 +1,6 @@
-﻿using MookApi.Context;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using MookApi.Context;
 using MookApi.Models;
 using MookApi.ViewModel;
 
@@ -18,36 +20,18 @@ namespace MookApi.Service
 
             List<CommentViewModel> commentViewModels = new List<CommentViewModel>();
             List<Comments> comments = new List<Comments>();
-            comments = _context.Comments.Select(c => new Comments()
-            {
-                UpdateDate = c.UpdateDate,
-                IsDeleted = c.IsDeleted,
-                AcceptedAdminID = c.AcceptedAdminID,
-                Admins = c.Admins,
-                Books = c.Books,
-                CommentContent = c.CommentContent,
-                CommentDislike = c.CommentDislike,
-                CommentFlag = c.CommentFlag,
-                CommentHeader = c.CommentHeader,
-                CommentID = c.CommentID,
-                CommentLike = c.CommentLike,
-                CreatedDate = c.CreatedDate,
-                FatherID = c.FatherID,
-                IsAdminAccepted = c.IsAdminAccepted,
-                Students = c.Students
-            }).Where(c => c.CommentFlag == true).ToList();
+            comments = _context.Comments.Where(c => c.CommentFlag == true && c.IsAdminAccepted == false).Include(x=> x.Books).Include(x=>x.Students).ToList();
 
-            commentViewModels = comments.Select(c => new CommentViewModel()
+            var commentConfig = new MapperConfiguration(cfg =>
             {
-                student = c.Students,
-                IsAdminAccepted = c.IsAdminAccepted,
-                book = c.Books,
-                commentContent = c.CommentContent,
-                commentHeader = c.CommentHeader,
-                CommentID = c.CommentID,
-                createdDate = c.CreatedDate,
-                AdminID = c.Admins.AdminID
-            }).ToList();
+                cfg.CreateMap<Comments, CommentViewModel>();
+                cfg.CreateMap<Students, StudentViewModel>();
+                cfg.CreateMap<Books, BookViewModel>();
+            });
+           
+            IMapper mapper = commentConfig.CreateMapper();
+
+            commentViewModels = mapper.Map<List<CommentViewModel>>(comments);
 
 
             return commentViewModels;
@@ -58,28 +42,37 @@ namespace MookApi.Service
             try
             {
                 Comments comments = new Comments();
-                comments = _context.Comments.Select(c => new Comments()
-                {
-                    UpdateDate = c.UpdateDate,
-                    IsDeleted = c.IsDeleted,
-                    AcceptedAdminID = c.AcceptedAdminID,
-                    Admins = c.Admins,
-                    Books = c.Books,
-                    CommentContent = c.CommentContent,
-                    CommentDislike = c.CommentDislike,
-                    CommentFlag = c.CommentFlag,
-                    CommentHeader = c.CommentHeader,
-                    CommentID = c.CommentID,
-                    CommentLike = c.CommentLike,
-                    CreatedDate = c.CreatedDate,
-                    FatherID = c.FatherID,
-                    IsAdminAccepted = c.IsAdminAccepted,
-                    Students = c.Students
-                }).Where(c => c.CommentID == commentID).FirstOrDefault();
+                comments = _context.Comments.Where(c => c.CommentID == commentID).FirstOrDefault();
 
                 if (comments != null)
                 {
                     comments.IsDeleted = true;
+
+                    _context.Comments.Update(comments);
+                    _context.SaveChanges();
+
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        public bool Accept(int commentID)
+        {
+            try
+            {
+                Comments comments = new Comments();
+                comments = _context.Comments.Where(c => c.CommentID == commentID).FirstOrDefault();
+
+                if (comments != null)
+                {
+                    comments.IsAdminAccepted = true;
 
                     _context.Comments.Update(comments);
                     _context.SaveChanges();
@@ -116,8 +109,8 @@ namespace MookApi.Service
                     CommentContent = commentViewModel.commentContent,
                     CommentHeader = commentViewModel.commentHeader,
                     Admins = _context.Admins.FirstOrDefault(c => c.AdminID == commentViewModel.AdminID),
-                    Books = _context.Books.FirstOrDefault(c => c.BookID == commentViewModel.book.BookID),
-                    Students = _context.Students.FirstOrDefault(c => c.StudentID == commentViewModel.student.StudentID)
+                    Books = _context.Books.FirstOrDefault(c => c.BookID == commentViewModel.books.BookID),
+                    Students = _context.Students.FirstOrDefault(c => c.StudentID == commentViewModel.students.StudentID)
                 };
 
                 _context.Comments.Add(comments);
@@ -149,8 +142,8 @@ namespace MookApi.Service
                 comments.CommentContent = commentViewModel.commentContent;
                 comments.CommentHeader = commentViewModel.commentHeader;
                 comments.Admins = _context.Admins.FirstOrDefault(c => c.AdminID == commentViewModel.AdminID);
-                comments.Books = _context.Books.FirstOrDefault(c => c.BookID == commentViewModel.book.BookID);
-                comments.Students = _context.Students.FirstOrDefault(c => c.StudentID == commentViewModel.student.StudentID);
+                comments.Books = _context.Books.FirstOrDefault(c => c.BookID == commentViewModel.books.BookID);
+                comments.Students = _context.Students.FirstOrDefault(c => c.StudentID == commentViewModel.students.StudentID);
 
                 _context.Comments.Update(comments);
                 var res = _context.SaveChanges();

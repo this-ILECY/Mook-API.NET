@@ -31,5 +31,14 @@ namespace MookApi.Controllers
             report = _service.getList();
             return Ok(report);
         }
+
+        [HttpPost("{id}")]
+        public ActionResult<List<StudentReportViewModel>> acceptNewRegister(int id)
+        {
+            List<StudentViewModel> report = new List<StudentViewModel>();
+            report = _service.Accept(id);
+            return Ok(report);
+        }
+
     }
 }

@@ -25,7 +25,7 @@ namespace MookApi.Controllers
             if (comment != null) return Ok(comment);
             else return BadRequest();
         }
-
+        
         [HttpPost]
         public ActionResult Create([FromBody]CommentViewModel comments)
         {
@@ -42,13 +42,22 @@ namespace MookApi.Controllers
             else return BadRequest();
         }
 
-        [HttpDelete]
-        public ActionResult Delete(int CommentID)
+        [HttpDelete("{id}")]
+        public ActionResult Delete(int id)
         {
-            bool IsDeleted = _service.delete(CommentID);
+            bool IsDeleted = _service.delete(id);
             if (IsDeleted) return Ok(IsDeleted);
             else return BadRequest(IsDeleted);
         }
+        [Route("/api/[Controller]/a/{id}")]
+        [HttpDelete]
+        public ActionResult<List<CommentViewModel>> AcceptComment(int id)
+        {
+            bool IsAccepted = _service.Accept(id);
+            if (IsAccepted) return Ok(IsAccepted);
+            else return BadRequest(IsAccepted);
+        }
+
 
     }
 }

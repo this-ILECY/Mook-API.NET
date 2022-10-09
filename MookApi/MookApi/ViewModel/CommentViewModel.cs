@@ -9,8 +9,8 @@ namespace MookApi.ViewModel
         public int CommentID { get; set; }
         public int AdminID { get; set; }
 
-        public Books book { get; set; }
-        public Students? student { get; set; }
+        public BookViewModel books { get; set; }
+        public StudentViewModel? students { get; set; }
         public string? commentHeader { get; set; }
         public string? commentContent { get; set; }
         public Boolean IsAdminAccepted { get; set; }
