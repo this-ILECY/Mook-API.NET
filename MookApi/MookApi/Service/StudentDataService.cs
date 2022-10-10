@@ -8,6 +8,13 @@ namespace MookApi.Service
 {
     public class StudentDataService
     {
+        public enum changeMethod
+        {
+            IsBlocked,
+            IsRegistered,
+            IsSuspended
+        }
+
         private readonly AppDbContext _context;
 
         public StudentDataService(AppDbContext context)
@@ -74,7 +81,7 @@ namespace MookApi.Service
             return studentViews;
         }
 
-        public Boolean Accept(int id)
+        public Boolean Change(int id, changeMethod method)
         {
             try
             {
@@ -83,7 +90,49 @@ namespace MookApi.Service
 
                 if (students != null)
                 {
-                    students.AcceptedAdminID = 1;
+                    switch (method)
+                    {
+                        case changeMethod.IsBlocked:
+                            break;
+                        case changeMethod.IsRegistered:
+                            //later
+                            //students.AcceptedAdminID = 1;
+
+                            students.IsRegistered = true;
+                            break;
+                        case changeMethod.IsSuspended:
+                            break;
+                        default:
+                            return false;
+                    }
+
+                
+
+                    _context.Students.Update(students);
+                    _context.SaveChanges();
+
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        public Boolean Delete(int id)
+        {
+            try
+            {
+                Students students = new Students();
+                students = _context.Students.Where(c => c.StudentID == id).FirstOrDefault();
+
+                if (students != null)
+                {
+                    students.IsDeleted = true;
 
                     _context.Students.Update(students);
                     _context.SaveChanges();

@@ -25,6 +25,18 @@ namespace MookApi.Controllers
             return Ok(list);
         }
 
-        
+        [HttpPut("{id}")]
+        public ActionResult<Boolean> Accept(int id)
+        {
+            bool report = _service.Accept(id);
+            return Ok(report);
+        }
+
+        [HttpDelete("{id}")]
+        public ActionResult<Boolean> Delete(int id)
+        {
+            bool report = _service.Delete(id);
+            return Ok(report);
+        }
     }
 }

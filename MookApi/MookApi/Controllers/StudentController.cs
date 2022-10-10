@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MookApi.Service;
 using MookApi.ViewModel;
+using static MookApi.Service.StudentDataService;
 
 namespace MookApi.Controllers
 {
@@ -32,11 +33,17 @@ namespace MookApi.Controllers
             return Ok(report);
         }
 
-        [HttpPost("{id}")]
-        public ActionResult<List<StudentReportViewModel>> acceptNewRegister(int id)
+        [HttpPut("{id}")]
+        public ActionResult<Boolean> Change(int id, changeMethod method)
         {
-            List<StudentViewModel> report = new List<StudentViewModel>();
-            report = _service.Accept(id);
+            bool report = _service.Change(id, method);
+            return Ok(report);
+        }
+
+        [HttpDelete("{id}")]
+        public ActionResult<Boolean> deleteNewRegister(int id)
+        {
+            bool report = _service.Delete(id);
             return Ok(report);
         }
 
