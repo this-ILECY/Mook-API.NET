@@ -109,7 +109,7 @@ namespace MookApi.Service
                     CommentContent = commentViewModel.commentContent,
                     CommentHeader = commentViewModel.commentHeader,
                     Admins = _context.Admins.FirstOrDefault(c => c.AdminID == commentViewModel.AdminID),
-                    Books = _context.Books.FirstOrDefault(c => c.BookID == commentViewModel.books.BookID),
+                    Books = _context.Books.FirstOrDefault(c => c.BookID == commentViewModel.books.bookID),
                     Students = _context.Students.FirstOrDefault(c => c.StudentID == commentViewModel.students.StudentID)
                 };
 
@@ -142,7 +142,7 @@ namespace MookApi.Service
                 comments.CommentContent = commentViewModel.commentContent;
                 comments.CommentHeader = commentViewModel.commentHeader;
                 comments.Admins = _context.Admins.FirstOrDefault(c => c.AdminID == commentViewModel.AdminID);
-                comments.Books = _context.Books.FirstOrDefault(c => c.BookID == commentViewModel.books.BookID);
+                comments.Books = _context.Books.FirstOrDefault(c => c.BookID == commentViewModel.books.bookID);
                 comments.Students = _context.Students.FirstOrDefault(c => c.StudentID == commentViewModel.students.StudentID);
 
                 _context.Comments.Update(comments);

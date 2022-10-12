@@ -93,6 +93,14 @@ namespace MookApi.Service
                     switch (method)
                     {
                         case changeMethod.IsBlocked:
+                            if (students.IsBlocked)
+                            {
+                                students.IsBlocked = false;
+                            }
+                            else
+                            {
+                                students.IsBlocked = true;
+                            }
                             break;
                         case changeMethod.IsRegistered:
                             //later
@@ -101,12 +109,20 @@ namespace MookApi.Service
                             students.IsRegistered = true;
                             break;
                         case changeMethod.IsSuspended:
+                            if (students.IsSuspended)
+                            {
+                                students.IsSuspended = false;
+                            }
+                            else
+                            {
+                                students.IsSuspended = true;
+                            }
                             break;
                         default:
                             return false;
                     }
 
-                
+
 
                     _context.Students.Update(students);
                     _context.SaveChanges();
@@ -148,6 +164,46 @@ namespace MookApi.Service
             {
                 return false;
             }
+        }
+
+        public Boolean Update(StudentViewModel studentViewModel)
+        {
+
+            Students students = new Students();
+
+            try
+            {
+                students = _context.Students.Where(c => c.StudentID == studentViewModel.StudentID).FirstOrDefault();
+
+                if (students != null)
+                {
+                    students.StudentName = studentViewModel.StudentName;
+                    students.StudentSSID = studentViewModel.StudentSSID;
+                    students.StudentUniversityID = studentViewModel.StudentUniversityID;
+                    students.SpamCount = studentViewModel.SpamCount;
+                    students.IsSuspended = studentViewModel.IsSuspended;
+                    students.IsRegistered = studentViewModel.IsRegistered;
+                    students.CreatedDate = studentViewModel.CreatedDate;
+                    students.IsBlocked = studentViewModel.IsBlocked;
+                    students.reportPoint = studentViewModel.reportPoint;
+                    students.IsSpam = studentViewModel.IsSpam;
+                    students.IsDeleted = false;
+
+                    _context.Students.Update(students);
+                    _context.SaveChanges();
+
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

@@ -2,15 +2,16 @@
 {
     public class BookViewModel
     {
-        public int BookID { get; set; }
-        public string BookName { get; set; }
-        public int BookPagesCount { get; set; }
-        public float BookRating { get; set; }
+        public int bookID { get; set; }
+        public string bookName { get; set; }
+        public int bookPagesCount { get; set; }
+        public float bookRating { get; set; }
         public string publisher { get; set; }
-        public string Author { get; set; }
-        public int BookRatingCount { get; set; }
-        public string BookDescription { get; set; }
-        public string IsAvailable { get; set; }
-        public Boolean IsDamaged { get; set; }
+        public string author { get; set; }
+        public int bookRatingCount { get; set; }
+        public string bookDescription { get; set; }
+        public Boolean isAvailable { get; set; }
+        public Boolean isDamaged { get; set; }
+        public string createdDate { get; set; }
     }
 }

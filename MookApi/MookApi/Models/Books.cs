@@ -15,7 +15,7 @@ namespace MookApi.Models
         public string Author { get; set; }
         public int BookRatingCount { get; set; }
         public string BookDescription { get; set; }
-        public string IsAvailable { get; set;}
+        public Boolean IsAvailable { get; set;}
         public Boolean IsDamaged {get; set;}
 
 

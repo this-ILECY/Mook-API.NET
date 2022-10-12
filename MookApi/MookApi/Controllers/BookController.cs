@@ -5,7 +5,7 @@ using MookApi.ViewModel;
 
 namespace MookApi.Controllers
 {
-    [Route("Book")]
+    [Route("api/[controller]")]
     [ApiController]
     public class BookController : ControllerBase
     {
@@ -34,6 +34,14 @@ namespace MookApi.Controllers
             else return BadRequest();
         }
 
-        
+        [HttpPut]
+        public ActionResult<Boolean> Update(BookViewModel bookViewModel)
+        {
+
+            bool result = _service.Update(bookViewModel);
+            if (result != null) return Ok(result);
+            else return BadRequest();
+        }
+
     }
 }

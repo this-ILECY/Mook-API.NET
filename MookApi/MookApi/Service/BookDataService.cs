@@ -1,4 +1,5 @@
-﻿using MookApi.Context;
+﻿using AutoMapper;
+using MookApi.Context;
 using MookApi.Models;
 using MookApi.ViewModel;
 
@@ -18,15 +19,15 @@ namespace MookApi.Service
             List<BookViewModel> books = new List<BookViewModel>();
             books = _context.Books.Select(c => new BookViewModel()
             {
-                Author = c.Author,
-                BookDescription = c.BookDescription,
-                BookID = c.BookID,
-                BookName = c.BookName,
-                BookPagesCount = c.BookPagesCount,
-                BookRating = c.BookRating,
-                BookRatingCount = c.BookRatingCount,
-                IsAvailable = c.IsAvailable,
-                IsDamaged = c.IsDamaged,
+                author = c.Author,
+                bookDescription = c.BookDescription,
+                bookID = c.BookID,
+                bookName = c.BookName,
+                bookPagesCount = c.BookPagesCount,
+                bookRating = c.BookRating,
+                bookRatingCount = c.BookRatingCount,
+                isAvailable = c.IsAvailable,
+                isDamaged = c.IsDamaged,
                 publisher = c.publisher
             }).ToList();
 
@@ -35,24 +36,61 @@ namespace MookApi.Service
 
         public BookViewModel getByID(int bookID)
         {
-            BookViewModel book = new BookViewModel();
-            book = _context.Books.Select(c => new BookViewModel()
+            var bookConfig = new MapperConfiguration(cfg =>
             {
-                Author = c.Author,
-                BookDescription = c.BookDescription,
-                BookID = c.BookID,
-                BookName = c.BookName,
-                BookPagesCount = c.BookPagesCount,
-                BookRating = c.BookRating,
-                BookRatingCount = c.BookRatingCount,
-                IsAvailable = c.IsAvailable,
-                IsDamaged = c.IsDamaged,
-                publisher = c.publisher
-            }).Where(x=> x.BookID == bookID).FirstOrDefault();
+                cfg.CreateMap<RequestHeader, StudentReportViewModel>();
+                cfg.CreateMap<RequestDetails, RequestDetailViewModel>();
+                cfg.CreateMap<Books, BookViewModel>();
+                cfg.CreateMap<Students, StudentViewModel>();
+            });
 
-            return book;
+            IMapper mapper = bookConfig.CreateMapper();
+
+            Books books = new Books();
+            books = _context.Books.Where(x=> x.BookID == bookID).FirstOrDefault();
+
+            BookViewModel bookViewModel = new BookViewModel();
+            bookViewModel = mapper.Map<BookViewModel>(books);
+
+            return bookViewModel;
         }
 
+        public Boolean Update(BookViewModel bookViewModel)
+        {
+            try
+            {
+                Books books = new Books();
+                books = _context.Books.Where(c => c.BookID == bookViewModel.bookID).FirstOrDefault();
+
+                if (books != null)
+                {
+                    books.IsDeleted = false;
+                    books.Author = bookViewModel.author;
+                    books.publisher = bookViewModel.publisher;
+                    books.BookPagesCount = bookViewModel.bookPagesCount;
+                    books.BookRating = bookViewModel.bookRating;
+                    books.BookName = bookViewModel.bookName;
+                    books.BookRatingCount = bookViewModel.bookRatingCount;
+                    books.BookDescription = bookViewModel.bookDescription;
+                    books.IsAvailable = bookViewModel.isAvailable;
+                    books.IsDamaged = bookViewModel.isDamaged;
+
+
+                    _context.Books.Update(books);
+                    _context.SaveChanges();
+
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
         
     }
 }

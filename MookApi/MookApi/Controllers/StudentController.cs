@@ -33,10 +33,17 @@ namespace MookApi.Controllers
             return Ok(report);
         }
 
-        [HttpPut("{id}")]
+        [HttpPatch]
         public ActionResult<Boolean> Change(int id, changeMethod method)
         {
             bool report = _service.Change(id, method);
+            return Ok(report);
+        }
+
+        [HttpPut]
+        public ActionResult<Boolean> Update(StudentViewModel studentViewModel)
+        {
+            bool report = _service.Update(studentViewModel);
             return Ok(report);
         }
 
