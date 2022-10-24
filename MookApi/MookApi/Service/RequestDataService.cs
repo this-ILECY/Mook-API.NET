@@ -40,6 +40,44 @@ namespace MookApi.Service
             return requestViewModel;
         }
 
+        public bool create(RequestViewModel requestViewModel)
+        {
+            try
+            {
+
+                var requestConfig = new MapperConfiguration(cfg =>
+                {
+                    cfg.CreateMap<RequestHeader, RequestViewModel>();
+                    cfg.CreateMap<RequestDetailViewModel, RequestDetails>();
+                    cfg.CreateMap<StudentViewModel, Students>();
+                    cfg.CreateMap<BookViewModel, Books>();
+                });
+
+                IMapper mapper = requestConfig.CreateMapper();
+
+                RequestHeader requestHeader = new RequestHeader();
+                List<RequestDetails> requestDetails = new List<RequestDetails>();
+
+                requestHeader.RequestAcceptedDate = null;
+                requestHeader.IsAccepted = false;
+                requestHeader.RequestFinishedDate = null;
+                requestHeader.IsDelayed = false;
+                requestHeader.DelayDays = 0;
+                requestHeader.RequestDecription = null;
+                requestHeader.IsDeleted = false;
+                requestHeader.students = mapper.Map<Students>(requestViewModel.students);
+                requestHeader.RequestDetails = mapper.Map<List<RequestDetails>>(requestViewModel.requestDetails);
+
+               _context.Add(requestHeader);
+                _context.SaveChanges();
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
         public bool Accept(int id)
         {
             try

@@ -43,5 +43,13 @@ namespace MookApi.Controllers
             else return BadRequest();
         }
 
+        [HttpPost]
+        public ActionResult<Boolean> Create(BookViewModel bookViewModel)
+        {
+            bool result = _service.Create(bookViewModel);
+            if (result != null) return Ok(result);
+            else return BadRequest();
+        }
+
     }
 }

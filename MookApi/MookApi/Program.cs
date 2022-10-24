@@ -23,10 +23,10 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "mook.Api.1.0.0", Version = "v1" });
 });
 
-builder.Services.AddScoped<CommentDataService, CommentDataService>();
-builder.Services.AddScoped<RequestDataService, RequestDataService>();
-builder.Services.AddScoped<StudentDataService, StudentDataService>();
-builder.Services.AddScoped<BookDataService, BookDataService>();
+builder.Services.AddTransient<CommentDataService, CommentDataService>();
+builder.Services.AddTransient<RequestDataService, RequestDataService>();
+builder.Services.AddTransient<StudentDataService, StudentDataService>();
+builder.Services.AddTransient<BookDataService, BookDataService>();
 
 builder.Services.AddCors(options =>
 {

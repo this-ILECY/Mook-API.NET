@@ -47,6 +47,13 @@ namespace MookApi.Controllers
             return Ok(report);
         }
 
+        [HttpPost]
+        public ActionResult<Boolean> Create(StudentViewModel studentViewModel)
+        {
+            bool report = _service.Create(studentViewModel);
+            return Ok(report);
+        }
+
         [HttpDelete("{id}")]
         public ActionResult<Boolean> deleteNewRegister(int id)
         {

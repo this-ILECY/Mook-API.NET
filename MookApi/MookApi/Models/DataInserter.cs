@@ -6,7 +6,7 @@ namespace MookApi.Models
     {
         public int? AcceptedAdminID { get; set; }
         [MaxLength(20)]
-        public string CreatedDate { get; set; }
+        public string createdDate { get; set; }
         [MaxLength(20)]
         public string? UpdateDate{ get; set; }
         public Boolean IsDeleted{ get; set; }

@@ -40,7 +40,7 @@ namespace MookApi.Service
 
             List<StudentViewModel> studentViewModels = new List<StudentViewModel>();
             List<Students> students = new List<Students>();
-            students = _context.Students.ToList();
+            students = _context.Students.Where(x => x.IsRegistered == true).ToList();
             studentViewModels = mapper.Map<List<StudentViewModel>>(students);
 
             List<RequestHeader> RequestHeader = new List<RequestHeader>();
@@ -183,7 +183,7 @@ namespace MookApi.Service
                     students.SpamCount = studentViewModel.SpamCount;
                     students.IsSuspended = studentViewModel.IsSuspended;
                     students.IsRegistered = studentViewModel.IsRegistered;
-                    students.CreatedDate = studentViewModel.CreatedDate;
+                    students.createdDate = studentViewModel.CreatedDate;
                     students.IsBlocked = studentViewModel.IsBlocked;
                     students.reportPoint = studentViewModel.reportPoint;
                     students.IsSpam = studentViewModel.IsSpam;
@@ -198,6 +198,44 @@ namespace MookApi.Service
                 {
                     return false;
                 }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            return true;
+        }
+        public Boolean Create(StudentViewModel studentViewModel)
+        {
+
+            Students students = new Students();
+
+            try
+            {
+                Students duplicateStudent = _context.Students.FirstOrDefault(c => c.StudentSSID == studentViewModel.StudentSSID);
+
+                if (duplicateStudent != null) return false;
+
+                students.StudentName = studentViewModel.StudentName;
+                students.StudentSSID = studentViewModel.StudentSSID;
+                students.StudentUniversityID = studentViewModel.StudentUniversityID;
+                students.SpamCount = 0;
+                students.IsSuspended = false;
+                students.IsRegistered = false;
+                students.createdDate = studentViewModel.CreatedDate;
+                students.UpdateDate = studentViewModel.CreatedDate;
+                students.IsBlocked = false;
+                students.reportPoint = 0;
+                students.IsSpam = false;
+                students.IsDeleted = false;
+                students.AcceptedAdminID = studentViewModel.AcceptedAdminID;
+                
+
+                _context.Students.Add(students);
+                _context.SaveChanges();
+
+                return true;
+
             }
             catch (Exception)
             {

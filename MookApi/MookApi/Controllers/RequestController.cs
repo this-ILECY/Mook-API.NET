@@ -25,6 +25,13 @@ namespace MookApi.Controllers
             return Ok(list);
         }
 
+        [HttpPost]
+        public ActionResult<bool> create(RequestViewModel requestViewModel)
+        {
+            bool report = _service.create(requestViewModel);
+            return Ok(report);
+        }
+
         [HttpPut("{id}")]
         public ActionResult<Boolean> Accept(int id)
         {

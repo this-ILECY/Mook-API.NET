@@ -105,11 +105,11 @@ namespace MookApi.Service
                     CommentFlag = false,
                     IsAdminAccepted = commentViewModel.IsAdminAccepted,
                     UpdateDate = commentViewModel.createdDate,
-                    CreatedDate = commentViewModel.createdDate,
+                    createdDate = commentViewModel.createdDate,
                     CommentContent = commentViewModel.commentContent,
                     CommentHeader = commentViewModel.commentHeader,
                     Admins = _context.Admins.FirstOrDefault(c => c.AdminID == commentViewModel.AdminID),
-                    Books = _context.Books.FirstOrDefault(c => c.BookID == commentViewModel.books.bookID),
+                    Books = _context.Books.FirstOrDefault(c => c.bookID == commentViewModel.books.bookID),
                     Students = _context.Students.FirstOrDefault(c => c.StudentID == commentViewModel.students.StudentID)
                 };
 
@@ -138,11 +138,11 @@ namespace MookApi.Service
                 comments.CommentFlag = false;
                 comments.IsAdminAccepted = commentViewModel.IsAdminAccepted;
                 comments.UpdateDate = commentViewModel.createdDate;
-                comments.CreatedDate = commentViewModel.createdDate;
+                comments.createdDate = commentViewModel.createdDate;
                 comments.CommentContent = commentViewModel.commentContent;
                 comments.CommentHeader = commentViewModel.commentHeader;
                 comments.Admins = _context.Admins.FirstOrDefault(c => c.AdminID == commentViewModel.AdminID);
-                comments.Books = _context.Books.FirstOrDefault(c => c.BookID == commentViewModel.books.bookID);
+                comments.Books = _context.Books.FirstOrDefault(c => c.bookID == commentViewModel.books.bookID);
                 comments.Students = _context.Students.FirstOrDefault(c => c.StudentID == commentViewModel.students.StudentID);
 
                 _context.Comments.Update(comments);

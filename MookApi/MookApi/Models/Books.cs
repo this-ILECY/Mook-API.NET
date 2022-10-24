@@ -7,7 +7,7 @@ namespace MookApi.Models
     public class Books : DataInserter
     {
         [Key]
-        public int BookID { get; set; }
+        public int bookID { get; set; }
         public string BookName { get; set; }
         public int BookPagesCount { get; set; }
         public float BookRating { get; set; }
