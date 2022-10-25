@@ -67,17 +67,14 @@ namespace MookApi.Service
         private Delay getIsDelay(RequestHeader rq)
         {
             Delay delay = new Delay();
+            var TimeNow = JalaliDate.getDate(DateTime.Now.ToLocalTime());
+            bool IsDelay = JalaliDate.compareDate(rq.RequestFinishedDate, TimeNow);
 
-            var name = JalaliDate.getDay(JalaliDate.getDate(DateTime.Now.ToLocalTime()));
-            int? delayValue = JalaliDate.getDay(rq.RequestFinishedDate) - JalaliDate.getDay(JalaliDate.getDate(DateTime.Now.ToLocalTime()));
-            if (delayValue != null)
-            {
-                delay.DelayDays = (int)delayValue;
-                if (delay.DelayDays > 0)
-                    delay.IsDelayed = true;
-                else
-                    delay.IsDelayed = false;
-            }
+            if (IsDelay)
+                delay.IsDelayed = true;
+            else
+                delay.IsDelayed = false;
+
             return delay;
         }
         private int getDelayCount(List<RequestHeader> rq)
@@ -93,7 +90,7 @@ namespace MookApi.Service
             Students students = new Students();
             StudentViewModel studentViews = new StudentViewModel();
 
-            students = _context.Students.FirstOrDefault(x=> x.StudentID == id);
+            students = _context.Students.FirstOrDefault(x => x.StudentID == id);
 
             var studentConfig = new MapperConfiguration(cfg =>
             {
