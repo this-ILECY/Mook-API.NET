@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using MookApi.Common;
 using MookApi.Context;
 using MookApi.Models;
 using MookApi.ViewModel;
@@ -27,7 +28,7 @@ namespace MookApi.Service
 
             var studentConfig = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<RequestHeader, StudentReportViewModel>();
+                cfg.CreateMap<Students, StudentReportViewModel>();
                 cfg.CreateMap<RequestDetails, RequestDetailViewModel>();
                 cfg.CreateMap<Books, BookViewModel>();
                 cfg.CreateMap<Students, StudentViewModel>();
@@ -45,23 +46,66 @@ namespace MookApi.Service
 
             List<RequestHeader> RequestHeader = new List<RequestHeader>();
             RequestHeader = _context.RequestHeader.Include(x => x.students).Include(x => x.Admins).Include(x => x.RequestDetails).ToList();
+            List<RequestDetails> requestDetails = new List<RequestDetails>();
+            requestDetails = _context.RequestDetails.ToList();
 
-            reportList = mapper.Map<List<StudentReportViewModel>>(RequestHeader);
+            reportList = mapper.Map<List<StudentReportViewModel>>(students);
 
             foreach (var item in reportList)
             {
-                item.RequestCount = RequestHeader.Where(x => x.students.StudentID == item.students.StudentID).Count();
-                item.RequsetDelayCount = RequestHeader.Where(x => x.students.StudentID == item.students.StudentID & x.IsDelayed == true).Count();
-                item.BookRent = RequestHeader.Where(x => x.students.StudentID == item.students.StudentID).Select(c => c.RequestDetails).Count();
-                item.BookDamaged = RequestHeader.Where(x => x.students.StudentID == item.students.StudentID).Select(c => c.RequestDetails.Where(d => d.IsDamaged == true)).Count();
-                item.BookLost = RequestHeader.Where(x => x.students.StudentID == item.students.StudentID).Select(c => c.RequestDetails.Where(d => d.IsLost == true)).Count();
+                item.RequestCount = RequestHeader.Where(x => x.students.StudentID == item.StudentID).Count();
+                item.RequsetDelayCount = getDelayCount(RequestHeader.Where(x => x.students.StudentID == item.StudentID).ToList());
+                item.BookRent = requestDetails.Where(x => x.RequestHeader.StudentID == item.StudentID).Count();
+                item.BookDamaged = requestDetails.Where(x => x.IsDamaged == true && x.RequestHeader.StudentID == item.StudentID).Count();
+                item.BookLost = requestDetails.Where(x => x.IsLost == true && x.RequestHeader.StudentID == item.StudentID).Count();
                 item.CreatedDate = item.CreatedDate;
-                item.LongestDelay = RequestHeader.Where(x => x.students.StudentID == item.students.StudentID).Max(x => x.DelayDays) + " روز";
             }
 
             return reportList;
         }
 
+        private Delay getIsDelay(RequestHeader rq)
+        {
+            Delay delay = new Delay();
+
+            var name = JalaliDate.getDay(JalaliDate.getDate(DateTime.Now.ToLocalTime()));
+            int? delayValue = JalaliDate.getDay(rq.RequestFinishedDate) - JalaliDate.getDay(JalaliDate.getDate(DateTime.Now.ToLocalTime()));
+            if (delayValue != null)
+            {
+                delay.DelayDays = (int)delayValue;
+                if (delay.DelayDays > 0)
+                    delay.IsDelayed = true;
+                else
+                    delay.IsDelayed = false;
+            }
+            return delay;
+        }
+        private int getDelayCount(List<RequestHeader> rq)
+        {
+            int count = 0;
+            foreach (var request in rq)
+                if (getIsDelay(request).IsDelayed) count++;
+            return count;
+        }
+
+        public StudentViewModel getByID(int id)
+        {
+            Students students = new Students();
+            StudentViewModel studentViews = new StudentViewModel();
+
+            students = _context.Students.FirstOrDefault(x=> x.StudentID == id);
+
+            var studentConfig = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Students, StudentViewModel>();
+            });
+
+            IMapper mapper = studentConfig.CreateMapper();
+
+            studentViews = mapper.Map<StudentViewModel>(students);
+
+            return studentViews;
+        }
         public List<StudentViewModel> getList()
         {
             List<Students> students = new List<Students>();
@@ -80,7 +124,6 @@ namespace MookApi.Service
 
             return studentViews;
         }
-
         public Boolean Change(int id, changeMethod method)
         {
             try
@@ -165,7 +208,6 @@ namespace MookApi.Service
                 return false;
             }
         }
-
         public Boolean Update(StudentViewModel studentViewModel)
         {
 
@@ -207,9 +249,7 @@ namespace MookApi.Service
         }
         public Boolean Create(StudentViewModel studentViewModel)
         {
-
             Students students = new Students();
-
             try
             {
                 Students duplicateStudent = _context.Students.FirstOrDefault(c => c.StudentSSID == studentViewModel.StudentSSID);
@@ -222,14 +262,13 @@ namespace MookApi.Service
                 students.SpamCount = 0;
                 students.IsSuspended = false;
                 students.IsRegistered = false;
-                students.createdDate = studentViewModel.CreatedDate;
-                students.UpdateDate = studentViewModel.CreatedDate;
+                students.createdDate = JalaliDate.getDate(DateTime.Parse(studentViewModel.CreatedDate));
+                students.UpdateDate = JalaliDate.getDate(DateTime.Parse(studentViewModel.CreatedDate));
                 students.IsBlocked = false;
                 students.reportPoint = 0;
                 students.IsSpam = false;
                 students.IsDeleted = false;
                 students.AcceptedAdminID = studentViewModel.AcceptedAdminID;
-                
 
                 _context.Students.Add(students);
                 _context.SaveChanges();
@@ -241,7 +280,6 @@ namespace MookApi.Service
             {
                 return false;
             }
-            return true;
         }
     }
 }

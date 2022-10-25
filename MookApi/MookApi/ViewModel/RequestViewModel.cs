@@ -4,13 +4,14 @@ namespace MookApi.ViewModel
 {
     public class RequestViewModel
     {
-        public int RequestID { get; set; }
-        public string? RequestAcceptedDate { get; set; }
-        public Boolean IsAccepted { get; set; }
-        public string? RequestFinishedDate { get; set; }
-        public Boolean IsDelayed { get; set; }
-        public int? DelayDays { get; set; }
-        public string? RequestDecription { get; set; }
+        public int requestID { get; set; }
+        public int studentID { get; set; }
+        public string? requestAcceptedDate { get; set; }
+        public Boolean isAccepted { get; set; }
+        public string? requestFinishedDate { get; set; }
+        public Boolean isDelayed { get; set; }
+        public int? delayDays { get; set; }
+        public string? requestDecription { get; set; }
         public string? createdDate { get; set; }
         public Boolean? IsDeleted { get; set; }
         
@@ -20,11 +21,18 @@ namespace MookApi.ViewModel
 
     public class RequestDetailViewModel
     {
-        public int RequestDetailID { get; set; }
-        public int RequestHeaderID { get; set; }
-        public BookViewModel Books { get; set; }
-        public string? RequestDetailDescription { get; set; }
-        public Boolean? IsDamaged { get; set; }
-        public Boolean? IsLost { get; set; }
+        public int requestDetailID { get; set; }
+        public int requestHeaderID { get; set; }
+        public int bookID { get; set; }
+        public BookViewModel books { get; set; }
+        public string? requestDetailDescription { get; set; }
+        public Boolean? isDamaged { get; set; }
+        public Boolean? isLost { get; set; }
+    }
+
+    public class Delay
+    {
+        public bool IsDelayed{ get; set; }
+        public int DelayDays { get; set; }
     }
 }

@@ -33,6 +33,14 @@ namespace MookApi.Controllers
             return Ok(report);
         }
 
+        [HttpGet("{Id}")]
+        public ActionResult<List<StudentReportViewModel>> getById(int Id)
+        {
+            StudentViewModel report = new StudentViewModel();
+            report = _service.getByID(Id);
+            return Ok(report);
+        }
+
         [HttpPatch]
         public ActionResult<Boolean> Change(int id, changeMethod method)
         {

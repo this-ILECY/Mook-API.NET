@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using MookApi.Common;
 using MookApi.Context;
 using MookApi.Models;
 using MookApi.ViewModel;
@@ -36,7 +37,14 @@ namespace MookApi.Service
 
             requestViewModel = mapper.Map<List<RequestViewModel>>(requestHeaders);
 
-
+            foreach (var item in requestViewModel)
+            {
+                item.delayDays = JalaliDate.getDay(item.requestFinishedDate) - JalaliDate.getDay(item.requestAcceptedDate) - 14;
+                if (item.delayDays > 0)
+                {
+                    item.isDelayed = true;
+                }
+            }
             return requestViewModel;
         }
 
@@ -56,19 +64,34 @@ namespace MookApi.Service
                 IMapper mapper = requestConfig.CreateMapper();
 
                 RequestHeader requestHeader = new RequestHeader();
-                List<RequestDetails> requestDetails = new List<RequestDetails>();
+                RequestDetails requestDetails = new RequestDetails();
 
                 requestHeader.RequestAcceptedDate = null;
                 requestHeader.IsAccepted = false;
                 requestHeader.RequestFinishedDate = null;
-                requestHeader.IsDelayed = false;
-                requestHeader.DelayDays = 0;
                 requestHeader.RequestDecription = null;
                 requestHeader.IsDeleted = false;
-                requestHeader.students = mapper.Map<Students>(requestViewModel.students);
-                requestHeader.RequestDetails = mapper.Map<List<RequestDetails>>(requestViewModel.requestDetails);
+                requestHeader.StudentID = requestViewModel.studentID;
+                requestHeader.createdDate = requestViewModel.createdDate;
+                requestHeader.UpdateDate = requestViewModel.createdDate;
+                _context.RequestHeader.Add(requestHeader);
+                _context.SaveChanges();
 
-               _context.Add(requestHeader);
+                foreach (var item in requestViewModel.requestDetails)
+                {
+                    requestDetails = new RequestDetails
+                    {
+                        RequestHeaderID = _context.RequestHeader.Max(x => x.RequestID),
+                        BookID = item.bookID,
+                        RequestDetailDescription = item.requestDetailDescription,
+                        IsDamaged = false,
+                        IsLost = false,
+                        createdDate = requestViewModel.createdDate,
+                        UpdateDate = requestViewModel.createdDate
+                    };
+                    _context.RequestDetails.Add(requestDetails);
+                }
+
                 _context.SaveChanges();
 
                 return true;
@@ -90,7 +113,8 @@ namespace MookApi.Service
                 {
                     //don`t forget accepted adminID
                     request.IsAccepted = true;
-
+                    request.RequestAcceptedDate = JalaliDate.getDate(DateTime.Now);
+                    request.RequestFinishedDate = JalaliDate.getDate(DateTime.Now.AddDays(14));
                     _context.RequestHeader.Update(request);
                     _context.SaveChanges();
 
