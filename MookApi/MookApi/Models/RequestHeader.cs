@@ -7,18 +7,18 @@ namespace MookApi.Models
     public class RequestHeader : DataInserter
     {
         [Key]
-        public int RequestID { get; set; }
-        public int StudentID { get; set; }
-        public string? RequestAcceptedDate { get; set; }
-        public Boolean IsAccepted { get; set; }
-        public string? RequestFinishedDate { get; set; }
-        public string? RequestDecription { get; set; }
+        public int requestID { get; set; }
+        public int studentID { get; set; }
+        public string? requestAcceptedDate { get; set; }
+        public Boolean isAccepted { get; set; }
+        public string? requestFinishedDate { get; set; }
+        public string? requestDecription { get; set; }
 
         [JsonIgnore]
         [IgnoreDataMember]
-        public Admins Admins { get; set; }
+        public Admins admins { get; set; }
         public Students students { get; set; }
-        public List<RequestDetails> RequestDetails { get; set; }
+        public List<RequestDetails> requestDetails { get; set; }
         //done
     }
 }

@@ -32,7 +32,7 @@ namespace MookApi.ViewModel
 
     public class Delay
     {
-        public bool IsDelayed{ get; set; }
-        public int DelayDays { get; set; }
+        public bool isDelayed{ get; set; }
+        public int delayDays { get; set; }
     }
 }

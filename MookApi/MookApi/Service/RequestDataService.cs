@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Azure.Core;
 using Microsoft.EntityFrameworkCore;
 using MookApi.Common;
 using MookApi.Context;
@@ -33,18 +34,21 @@ namespace MookApi.Service
             IMapper mapper = requestConfig.CreateMapper();
 
             List<RequestHeader> requestHeaders = new List<RequestHeader>();
-            requestHeaders = _context.RequestHeader.Include(x => x.RequestDetails).ThenInclude(x => x.Books).Include(x => x.students).Include(x => x.Admins).ToList();
+            requestHeaders = _context.RequestHeader.Include(x => x.requestDetails).ThenInclude(x => x.books).Include(x => x.students).Include(x => x.admins).ToList();
 
             requestViewModel = mapper.Map<List<RequestViewModel>>(requestHeaders);
 
             foreach (var item in requestViewModel)
             {
-                item.delayDays = JalaliDate.getDay(item.requestFinishedDate) - JalaliDate.getDay(item.requestAcceptedDate) - 14;
+                Delay getDelay = JalaliDate.getIsDelay(null, item);
+                item.isDelayed = getDelay.isDelayed;
+                item.delayDays = getDelay.delayDays;
                 if (item.delayDays > 0)
                 {
                     item.isDelayed = true;
                 }
             }
+
             return requestViewModel;
         }
 
@@ -66,14 +70,14 @@ namespace MookApi.Service
                 RequestHeader requestHeader = new RequestHeader();
                 RequestDetails requestDetails = new RequestDetails();
 
-                requestHeader.RequestAcceptedDate = null;
-                requestHeader.IsAccepted = false;
-                requestHeader.RequestFinishedDate = null;
-                requestHeader.RequestDecription = null;
-                requestHeader.IsDeleted = false;
-                requestHeader.StudentID = requestViewModel.studentID;
+                requestHeader.requestAcceptedDate = null;
+                requestHeader.isAccepted = false;
+                requestHeader.requestFinishedDate = null;
+                requestHeader.requestDecription = null;
+                requestHeader.isDeleted = false;
+                requestHeader.studentID = requestViewModel.studentID;
                 requestHeader.createdDate = requestViewModel.createdDate;
-                requestHeader.UpdateDate = requestViewModel.createdDate;
+                requestHeader.updateDate = requestViewModel.createdDate;
                 _context.RequestHeader.Add(requestHeader);
                 _context.SaveChanges();
 
@@ -81,13 +85,13 @@ namespace MookApi.Service
                 {
                     requestDetails = new RequestDetails
                     {
-                        RequestHeaderID = _context.RequestHeader.Max(x => x.RequestID),
-                        BookID = item.bookID,
-                        RequestDetailDescription = item.requestDetailDescription,
-                        IsDamaged = false,
-                        IsLost = false,
+                        requestHeaderID = _context.RequestHeader.Max(x => x.requestID),
+                        bookID = item.bookID,
+                        requestDetailDescription = item.requestDetailDescription,
+                        isDamaged = false,
+                        isLost = false,
                         createdDate = requestViewModel.createdDate,
-                        UpdateDate = requestViewModel.createdDate
+                        updateDate = requestViewModel.createdDate
                     };
                     _context.RequestDetails.Add(requestDetails);
                 }
@@ -106,15 +110,15 @@ namespace MookApi.Service
             try
             {
                 RequestHeader request = new RequestHeader();
-                request = _context.RequestHeader.Where(c => c.RequestID == id)
-                    .Include(x => x.Admins).Include(x => x.students).Include(x => x.RequestDetails).ThenInclude(x => x.Books).FirstOrDefault();
+                request = _context.RequestHeader.Where(c => c.requestID == id)
+                    .Include(x => x.admins).Include(x => x.students).Include(x => x.requestDetails).ThenInclude(x => x.books).FirstOrDefault();
 
                 if (request != null)
                 {
                     //don`t forget accepted adminID
-                    request.IsAccepted = true;
-                    request.RequestAcceptedDate = JalaliDate.getDate(DateTime.Now);
-                    request.RequestFinishedDate = JalaliDate.getDate(DateTime.Now.AddDays(14));
+                    request.isAccepted = true;
+                    request.requestAcceptedDate = JalaliDate.getDate(DateTime.Now);
+                    request.requestFinishedDate = JalaliDate.getDate(DateTime.Now.AddDays(14));
                     _context.RequestHeader.Update(request);
                     _context.SaveChanges();
 
@@ -136,11 +140,11 @@ namespace MookApi.Service
             try
             {
                 RequestHeader request = new RequestHeader();
-                request = _context.RequestHeader.Where(c => c.RequestID == id).FirstOrDefault();
+                request = _context.RequestHeader.Where(c => c.requestID == id).FirstOrDefault();
 
                 if (request != null)
                 {
-                    request.IsDeleted = true;
+                    request.isDeleted = true;
 
                     _context.RequestHeader.Update(request);
                     _context.SaveChanges();

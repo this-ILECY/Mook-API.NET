@@ -3,7 +3,7 @@
     public class BookViewModel
     {
         public int bookID { get; set; }
-        public int AcceptedAdminID { get; set; }
+        public int acceptedAdminID { get; set; }
         public string bookName { get; set; }
         public int bookPagesCount { get; set; }
         public float bookRating { get; set; }

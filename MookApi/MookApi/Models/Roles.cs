@@ -4,6 +4,6 @@ namespace MookApi.Models
 {
     public class Roles :IdentityRole<long>
     {
-        public Boolean IsDeleted { get; set; }
+        public Boolean isDeleted { get; set; }
     }
 }

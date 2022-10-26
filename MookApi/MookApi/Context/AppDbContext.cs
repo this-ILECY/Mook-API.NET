@@ -25,20 +25,20 @@ namespace MookApi.Context
         {
             base.OnModelCreating(builder);
 
-            builder.Entity<History>().HasOne(c => c.students).WithMany(d => d.Histories).HasForeignKey("StudentID").OnDelete(DeleteBehavior.Restrict);
-            builder.Entity<History>().HasOne(c => c.adminFk).WithMany(d => d.HistoryFk).HasForeignKey("AcceptedAdminID").OnDelete(DeleteBehavior.Restrict);
-            builder.Entity<Comments>().HasOne(c => c.Students).WithMany(d => d.Comments).HasForeignKey("StudentID").OnDelete(DeleteBehavior.Restrict);
-            builder.Entity<BookToBuy>().HasOne(c => c.Students).WithMany(c => c.BooksTobuy).HasForeignKey("StudentID").OnDelete(DeleteBehavior.Restrict);
-            builder.Entity<RequestHeader>().HasOne(c => c.students).WithMany(d => d.RequestHeaders).HasForeignKey("StudentID").OnDelete(DeleteBehavior.Restrict);
-            builder.Entity<Students>().HasOne(c => c.Admins).WithMany(d => d.StudentsFk).HasForeignKey("AcceptedAdminID").OnDelete(DeleteBehavior.Restrict);
-            builder.Entity<Comments>().HasOne(c => c.Admins).WithMany(c => c.CommentsFk).HasForeignKey("AcceptedAdminID").OnDelete(DeleteBehavior.Restrict);
-            builder.Entity<Comments>().HasOne(c => c.Books).WithMany(c => c.Comments).HasForeignKey("BookID").OnDelete(DeleteBehavior.Restrict);
-            builder.Entity<Students>().HasOne(b => b.users).WithOne(c => c.students).HasForeignKey("Students").OnDelete(DeleteBehavior.Restrict);
-            builder.Entity<Admins>().HasOne(b => b.UsersFk).WithOne(c => c.Admins).HasForeignKey("Admins").OnDelete(DeleteBehavior.Restrict);
-            builder.Entity<Books>().HasOne(c => c.Admins).WithMany(c => c.BooksFk).HasForeignKey("AcceptedAdminID").OnDelete(DeleteBehavior.Restrict);
-            builder.Entity<RequestHeader>().HasOne(c => c.Admins).WithMany(c => c.RequestHeaderFk).HasForeignKey("AcceptedAdminID").OnDelete(DeleteBehavior.Restrict);
-            builder.Entity<RequestDetails>().HasOne(c => c.Books).WithMany(c => c.RequestDetails).HasForeignKey("BookID").OnDelete(DeleteBehavior.Restrict);
-            builder.Entity<RequestDetails>().HasOne(c => c.RequestHeader).WithMany(c => c.RequestDetails).HasForeignKey("RequestHeaderID").OnDelete(DeleteBehavior.Restrict);
+            builder.Entity<History>().HasOne(c => c.students).WithMany(d => d.histories).HasForeignKey("studentID").OnDelete(DeleteBehavior.Restrict);
+            builder.Entity<History>().HasOne(c => c.admin).WithMany(d => d.history).HasForeignKey("acceptedAdminID").OnDelete(DeleteBehavior.Restrict);
+            builder.Entity<Comments>().HasOne(c => c.students).WithMany(d => d.comments).HasForeignKey("studentID").OnDelete(DeleteBehavior.Restrict);
+            builder.Entity<BookToBuy>().HasOne(c => c.students).WithMany(c => c.booksTobuy).HasForeignKey("studentID").OnDelete(DeleteBehavior.Restrict);
+            builder.Entity<RequestHeader>().HasOne(c => c.students).WithMany(d => d.requestHeaders).HasForeignKey("studentID").OnDelete(DeleteBehavior.Restrict);
+            builder.Entity<Students>().HasOne(c => c.admins).WithMany(d => d.students).HasForeignKey("adminID").OnDelete(DeleteBehavior.Restrict);
+            builder.Entity<Comments>().HasOne(c => c.admins).WithMany(c => c.comments).HasForeignKey("acceptedAdminID").OnDelete(DeleteBehavior.Restrict);
+            builder.Entity<Comments>().HasOne(c => c.books).WithMany(c => c.comments).HasForeignKey("bookID").OnDelete(DeleteBehavior.Restrict);
+            builder.Entity<Users>().HasOne(b => b.students).WithOne(c => c.users).HasForeignKey<Students>(x=> x.userID).OnDelete(DeleteBehavior.Restrict);
+            builder.Entity<Users>().HasOne(b => b.admins).WithOne(c => c.users).HasForeignKey<Admins>(x=> x.userID).OnDelete(DeleteBehavior.Restrict);
+            builder.Entity<Books>().HasOne(c => c.admins).WithMany(c => c.books).HasForeignKey("acceptedAdminID").OnDelete(DeleteBehavior.Restrict);
+            builder.Entity<RequestHeader>().HasOne(c => c.admins).WithMany(c => c.requestHeader).HasForeignKey("acceptedAdminID").OnDelete(DeleteBehavior.Restrict);
+            builder.Entity<RequestDetails>().HasOne(c => c.books).WithMany(c => c.requestDetails).HasForeignKey("bookID").OnDelete(DeleteBehavior.Restrict);
+            builder.Entity<RequestDetails>().HasOne(c => c.requestHeader).WithMany(c => c.requestDetails).HasForeignKey("requestHeaderID").OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

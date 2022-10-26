@@ -15,7 +15,7 @@ namespace MookApi.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    isDeleted = table.Column<bool>(type: "bit", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -31,9 +31,9 @@ namespace MookApi.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CreatedDate = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    createdDate = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    isActive = table.Column<bool>(type: "bit", nullable: false),
+                    isDeleted = table.Column<bool>(type: "bit", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -79,21 +79,21 @@ namespace MookApi.Migrations
                 name: "Admins",
                 columns: table => new
                 {
-                    AdminID = table.Column<int>(type: "int", nullable: false)
+                    adminID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    AdminName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UsersFkId = table.Column<long>(type: "bigint", nullable: true),
-                    AcceptedAdminID = table.Column<int>(type: "int", nullable: true),
-                    CreatedDate = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    UpdateDate = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                    userID = table.Column<long>(type: "bigint", nullable: false),
+                    adminName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    acceptedAdminID = table.Column<int>(type: "int", nullable: true),
+                    createdDate = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    updateDate = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
+                    isDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Admins", x => x.AdminID);
+                    table.PrimaryKey("PK_Admins", x => x.adminID);
                     table.ForeignKey(
-                        name: "FK_Admins_AspNetUsers_UsersFkId",
-                        column: x => x.UsersFkId,
+                        name: "FK_Admins_AspNetUsers_userID",
+                        column: x => x.userID,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -188,30 +188,30 @@ namespace MookApi.Migrations
                 name: "Books",
                 columns: table => new
                 {
-                    BookID = table.Column<int>(type: "int", nullable: false)
+                    bookID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    BookName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    BookPagesCount = table.Column<int>(type: "int", nullable: false),
-                    BookRating = table.Column<float>(type: "real", nullable: false),
+                    bookName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    bookPagesCount = table.Column<int>(type: "int", nullable: false),
+                    bookRating = table.Column<float>(type: "real", nullable: false),
                     publisher = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Author = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    BookRatingCount = table.Column<int>(type: "int", nullable: false),
-                    BookDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IsAvailable = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IsDamaged = table.Column<bool>(type: "bit", nullable: false),
-                    AcceptedAdminID = table.Column<int>(type: "int", nullable: true),
-                    CreatedDate = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    UpdateDate = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                    author = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    bookRatingCount = table.Column<int>(type: "int", nullable: false),
+                    bookDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    isAvailable = table.Column<bool>(type: "bit", nullable: false),
+                    isDamaged = table.Column<bool>(type: "bit", nullable: false),
+                    acceptedAdminID = table.Column<int>(type: "int", nullable: true),
+                    createdDate = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    updateDate = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
+                    isDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Books", x => x.BookID);
+                    table.PrimaryKey("PK_Books", x => x.bookID);
                     table.ForeignKey(
-                        name: "FK_Books_Admins_AcceptedAdminID",
-                        column: x => x.AcceptedAdminID,
+                        name: "FK_Books_Admins_acceptedAdminID",
+                        column: x => x.acceptedAdminID,
                         principalTable: "Admins",
-                        principalColumn: "AdminID",
+                        principalColumn: "adminID",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -219,35 +219,36 @@ namespace MookApi.Migrations
                 name: "Students",
                 columns: table => new
                 {
-                    StudentID = table.Column<int>(type: "int", nullable: false)
+                    studentID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    StudentName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    StudentSSID = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    StudentUniversityID = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SpamCount = table.Column<int>(type: "int", nullable: false),
-                    IsSuspended = table.Column<bool>(type: "bit", nullable: false),
-                    IsRegistered = table.Column<bool>(type: "bit", nullable: false),
-                    IsBlocked = table.Column<bool>(type: "bit", nullable: false),
+                    userID = table.Column<long>(type: "bigint", nullable: false),
+                    studentName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    studentSSID = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    studentUniversityID = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    spamCount = table.Column<int>(type: "int", nullable: false),
+                    isSuspended = table.Column<bool>(type: "bit", nullable: false),
+                    isRegistered = table.Column<bool>(type: "bit", nullable: false),
+                    isBlocked = table.Column<bool>(type: "bit", nullable: false),
                     reportPoint = table.Column<int>(type: "int", nullable: false),
-                    IsSpam = table.Column<bool>(type: "bit", nullable: false),
-                    usersId = table.Column<long>(type: "bigint", nullable: true),
-                    AcceptedAdminID = table.Column<int>(type: "int", nullable: true),
-                    CreatedDate = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    UpdateDate = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                    isSpam = table.Column<bool>(type: "bit", nullable: false),
+                    adminID = table.Column<int>(type: "int", nullable: false),
+                    acceptedAdminID = table.Column<int>(type: "int", nullable: true),
+                    createdDate = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    updateDate = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
+                    isDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Students", x => x.StudentID);
+                    table.PrimaryKey("PK_Students", x => x.studentID);
                     table.ForeignKey(
-                        name: "FK_Students_Admins_AcceptedAdminID",
-                        column: x => x.AcceptedAdminID,
+                        name: "FK_Students_Admins_adminID",
+                        column: x => x.adminID,
                         principalTable: "Admins",
-                        principalColumn: "AdminID",
+                        principalColumn: "adminID",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Students_AspNetUsers_usersId",
-                        column: x => x.usersId,
+                        name: "FK_Students_AspNetUsers_userID",
+                        column: x => x.userID,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -262,20 +263,20 @@ namespace MookApi.Migrations
                     bookName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     bookAuthor = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     bookPublisher = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    StudentID = table.Column<int>(type: "int", nullable: false),
-                    AcceptedAdminID = table.Column<int>(type: "int", nullable: true),
-                    CreatedDate = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    UpdateDate = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                    studentID = table.Column<int>(type: "int", nullable: false),
+                    acceptedAdminID = table.Column<int>(type: "int", nullable: true),
+                    createdDate = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    updateDate = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
+                    isDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_BookToBuy", x => x.bookToBuyId);
                     table.ForeignKey(
-                        name: "FK_BookToBuy_Students_StudentID",
-                        column: x => x.StudentID,
+                        name: "FK_BookToBuy_Students_studentID",
+                        column: x => x.studentID,
                         principalTable: "Students",
-                        principalColumn: "StudentID",
+                        principalColumn: "studentID",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -283,42 +284,42 @@ namespace MookApi.Migrations
                 name: "Comments",
                 columns: table => new
                 {
-                    CommentID = table.Column<int>(type: "int", nullable: false)
+                    commentID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FatherID = table.Column<int>(type: "int", nullable: false),
-                    BookID = table.Column<int>(type: "int", nullable: false),
-                    CommentHeader = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CommentContent = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CommentLike = table.Column<float>(type: "real", nullable: false),
-                    CommentDislike = table.Column<float>(type: "real", nullable: false),
-                    CommentFlag = table.Column<bool>(type: "bit", nullable: false),
-                    IsAdminAccepted = table.Column<bool>(type: "bit", nullable: false),
-                    StudentID = table.Column<int>(type: "int", nullable: false),
-                    AcceptedAdminID = table.Column<int>(type: "int", nullable: true),
-                    CreatedDate = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    UpdateDate = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                    fatherID = table.Column<int>(type: "int", nullable: false),
+                    bookID = table.Column<int>(type: "int", nullable: false),
+                    commentHeader = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    commentContent = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    commentLike = table.Column<float>(type: "real", nullable: false),
+                    commentDislike = table.Column<float>(type: "real", nullable: false),
+                    commentFlag = table.Column<bool>(type: "bit", nullable: false),
+                    isAdminAccepted = table.Column<bool>(type: "bit", nullable: false),
+                    studentID = table.Column<int>(type: "int", nullable: false),
+                    acceptedAdminID = table.Column<int>(type: "int", nullable: true),
+                    createdDate = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    updateDate = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
+                    isDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Comments", x => x.CommentID);
+                    table.PrimaryKey("PK_Comments", x => x.commentID);
                     table.ForeignKey(
-                        name: "FK_Comments_Admins_AcceptedAdminID",
-                        column: x => x.AcceptedAdminID,
+                        name: "FK_Comments_Admins_acceptedAdminID",
+                        column: x => x.acceptedAdminID,
                         principalTable: "Admins",
-                        principalColumn: "AdminID",
+                        principalColumn: "adminID",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Comments_Books_BookID",
-                        column: x => x.BookID,
+                        name: "FK_Comments_Books_bookID",
+                        column: x => x.bookID,
                         principalTable: "Books",
-                        principalColumn: "BookID",
+                        principalColumn: "bookID",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Comments_Students_StudentID",
-                        column: x => x.StudentID,
+                        name: "FK_Comments_Students_studentID",
+                        column: x => x.studentID,
                         principalTable: "Students",
-                        principalColumn: "StudentID",
+                        principalColumn: "studentID",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -326,33 +327,33 @@ namespace MookApi.Migrations
                 name: "History",
                 columns: table => new
                 {
-                    HistoryID = table.Column<int>(type: "int", nullable: false)
+                    historyID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TableName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ColumnName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ColumnChanged = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TableID = table.Column<int>(type: "int", nullable: false),
-                    Date = table.Column<int>(type: "int", nullable: false),
-                    StudentID = table.Column<int>(type: "int", nullable: false),
-                    AcceptedAdminID = table.Column<int>(type: "int", nullable: true),
-                    CreatedDate = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    UpdateDate = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                    tableName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    columnName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    columnChanged = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    tableID = table.Column<int>(type: "int", nullable: false),
+                    date = table.Column<int>(type: "int", nullable: false),
+                    studentID = table.Column<int>(type: "int", nullable: false),
+                    acceptedAdminID = table.Column<int>(type: "int", nullable: true),
+                    createdDate = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    updateDate = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
+                    isDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_History", x => x.HistoryID);
+                    table.PrimaryKey("PK_History", x => x.historyID);
                     table.ForeignKey(
-                        name: "FK_History_Admins_AcceptedAdminID",
-                        column: x => x.AcceptedAdminID,
+                        name: "FK_History_Admins_acceptedAdminID",
+                        column: x => x.acceptedAdminID,
                         principalTable: "Admins",
-                        principalColumn: "AdminID",
+                        principalColumn: "adminID",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_History_Students_StudentID",
-                        column: x => x.StudentID,
+                        name: "FK_History_Students_studentID",
+                        column: x => x.studentID,
                         principalTable: "Students",
-                        principalColumn: "StudentID",
+                        principalColumn: "studentID",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -360,34 +361,32 @@ namespace MookApi.Migrations
                 name: "RequestHeader",
                 columns: table => new
                 {
-                    RequestID = table.Column<int>(type: "int", nullable: false)
+                    requestID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    RequestAcceptedDate = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsAccepted = table.Column<bool>(type: "bit", nullable: false),
-                    RequestFinishedDate = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDelayed = table.Column<bool>(type: "bit", nullable: false),
-                    DelayDays = table.Column<int>(type: "int", nullable: true),
-                    RequestDecription = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    StudentID = table.Column<int>(type: "int", nullable: false),
-                    AcceptedAdminID = table.Column<int>(type: "int", nullable: true),
-                    CreatedDate = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    UpdateDate = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                    studentID = table.Column<int>(type: "int", nullable: false),
+                    requestAcceptedDate = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    isAccepted = table.Column<bool>(type: "bit", nullable: false),
+                    requestFinishedDate = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    requestDecription = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    acceptedAdminID = table.Column<int>(type: "int", nullable: true),
+                    createdDate = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    updateDate = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
+                    isDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RequestHeader", x => x.RequestID);
+                    table.PrimaryKey("PK_RequestHeader", x => x.requestID);
                     table.ForeignKey(
-                        name: "FK_RequestHeader_Admins_AcceptedAdminID",
-                        column: x => x.AcceptedAdminID,
+                        name: "FK_RequestHeader_Admins_acceptedAdminID",
+                        column: x => x.acceptedAdminID,
                         principalTable: "Admins",
-                        principalColumn: "AdminID",
+                        principalColumn: "adminID",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_RequestHeader_Students_StudentID",
-                        column: x => x.StudentID,
+                        name: "FK_RequestHeader_Students_studentID",
+                        column: x => x.studentID,
                         principalTable: "Students",
-                        principalColumn: "StudentID",
+                        principalColumn: "studentID",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -395,41 +394,40 @@ namespace MookApi.Migrations
                 name: "RequestDetails",
                 columns: table => new
                 {
-                    RequestDetailID = table.Column<int>(type: "int", nullable: false)
+                    requestDetailID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    RequestDetailDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDamaged = table.Column<bool>(type: "bit", nullable: true),
-                    IsLost = table.Column<bool>(type: "bit", nullable: true),
-                    BookID = table.Column<int>(type: "int", nullable: false),
-                    RequestHeaderID = table.Column<int>(type: "int", nullable: false),
-                    AcceptedAdminID = table.Column<int>(type: "int", nullable: true),
-                    CreatedDate = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    UpdateDate = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                    requestHeaderID = table.Column<int>(type: "int", nullable: false),
+                    bookID = table.Column<int>(type: "int", nullable: false),
+                    requestDetailDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    isDamaged = table.Column<bool>(type: "bit", nullable: true),
+                    isLost = table.Column<bool>(type: "bit", nullable: true),
+                    acceptedAdminID = table.Column<int>(type: "int", nullable: true),
+                    createdDate = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    updateDate = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
+                    isDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RequestDetails", x => x.RequestDetailID);
+                    table.PrimaryKey("PK_RequestDetails", x => x.requestDetailID);
                     table.ForeignKey(
-                        name: "FK_RequestDetails_Books_BookID",
-                        column: x => x.BookID,
+                        name: "FK_RequestDetails_Books_bookID",
+                        column: x => x.bookID,
                         principalTable: "Books",
-                        principalColumn: "BookID",
+                        principalColumn: "bookID",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_RequestDetails_RequestHeader_RequestHeaderID",
-                        column: x => x.RequestHeaderID,
+                        name: "FK_RequestDetails_RequestHeader_requestHeaderID",
+                        column: x => x.requestHeaderID,
                         principalTable: "RequestHeader",
-                        principalColumn: "RequestID",
+                        principalColumn: "requestID",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Admins_UsersFkId",
+                name: "IX_Admins_userID",
                 table: "Admins",
-                column: "UsersFkId",
-                unique: true,
-                filter: "[UsersFkId] IS NOT NULL");
+                column: "userID",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -471,71 +469,70 @@ namespace MookApi.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Books_AcceptedAdminID",
+                name: "IX_Books_acceptedAdminID",
                 table: "Books",
-                column: "AcceptedAdminID");
+                column: "acceptedAdminID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_BookToBuy_StudentID",
+                name: "IX_BookToBuy_studentID",
                 table: "BookToBuy",
-                column: "StudentID");
+                column: "studentID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comments_AcceptedAdminID",
+                name: "IX_Comments_acceptedAdminID",
                 table: "Comments",
-                column: "AcceptedAdminID");
+                column: "acceptedAdminID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comments_BookID",
+                name: "IX_Comments_bookID",
                 table: "Comments",
-                column: "BookID");
+                column: "bookID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comments_StudentID",
+                name: "IX_Comments_studentID",
                 table: "Comments",
-                column: "StudentID");
+                column: "studentID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_History_AcceptedAdminID",
+                name: "IX_History_acceptedAdminID",
                 table: "History",
-                column: "AcceptedAdminID");
+                column: "acceptedAdminID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_History_StudentID",
+                name: "IX_History_studentID",
                 table: "History",
-                column: "StudentID");
+                column: "studentID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RequestDetails_BookID",
+                name: "IX_RequestDetails_bookID",
                 table: "RequestDetails",
-                column: "BookID");
+                column: "bookID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RequestDetails_RequestHeaderID",
+                name: "IX_RequestDetails_requestHeaderID",
                 table: "RequestDetails",
-                column: "RequestHeaderID");
+                column: "requestHeaderID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RequestHeader_AcceptedAdminID",
+                name: "IX_RequestHeader_acceptedAdminID",
                 table: "RequestHeader",
-                column: "AcceptedAdminID");
+                column: "acceptedAdminID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RequestHeader_StudentID",
+                name: "IX_RequestHeader_studentID",
                 table: "RequestHeader",
-                column: "StudentID");
+                column: "studentID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Students_AcceptedAdminID",
+                name: "IX_Students_adminID",
                 table: "Students",
-                column: "AcceptedAdminID");
+                column: "adminID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Students_usersId",
+                name: "IX_Students_userID",
                 table: "Students",
-                column: "usersId",
-                unique: true,
-                filter: "[usersId] IS NOT NULL");
+                column: "userID",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

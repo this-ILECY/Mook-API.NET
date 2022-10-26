@@ -5,19 +5,19 @@ namespace MookApi.Models
     public class Comments : DataInserter
     {
         [Key]
-        public int CommentID { get; set; }
-        public int FatherID { get; set; }
-        public int BookID { get; set; }
-        public string CommentHeader { get; set; }
-        public string CommentContent { get; set; }
-        public float CommentLike { get; set; }
-        public float CommentDislike { get; set; }
-        public Boolean CommentFlag { get; set; }
-        public Boolean IsAdminAccepted { get; set; }
+        public int commentID { get; set; }
+        public int fatherID { get; set; }
+        public int bookID { get; set; }
+        public string commentHeader { get; set; }
+        public string commentContent { get; set; }
+        public float commentLike { get; set; }
+        public float commentDislike { get; set; }
+        public Boolean commentFlag { get; set; }
+        public Boolean isAdminAccepted { get; set; }
 
-        public Admins Admins { get; set; }
-        public Students Students { get; set; }
-        public Books Books { get; set; }
+        public Admins admins { get; set; }
+        public Students students { get; set; }
+        public Books books { get; set; }
         //done
     }
 }

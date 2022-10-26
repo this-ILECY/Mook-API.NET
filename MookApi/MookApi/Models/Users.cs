@@ -4,12 +4,11 @@ namespace MookApi.Models
 {
     public class Users : IdentityUser<long>
     {
-        //public int UserID { get; set; }
-        public string CreatedDate { get; set; }
-        public bool IsActive { get; set; }
-        public bool IsDeleted { get; set; }
+        public string createdDate { get; set; }
+        public bool isActive { get; set; }
+        public bool isDeleted { get; set; }
 
-        public Admins Admins { get; set; }
+        public Admins admins { get; set; }
         public Students students { get; set; }
     }
 }

@@ -20,7 +20,7 @@ namespace MookApi.Service
 
             List<CommentViewModel> commentViewModels = new List<CommentViewModel>();
             List<Comments> comments = new List<Comments>();
-            comments = _context.Comments.Where(c => c.CommentFlag == true && c.IsAdminAccepted == false).Include(x=> x.Books).Include(x=>x.Students).ToList();
+            comments = _context.Comments.Where(c => c.commentFlag == true && c.isAdminAccepted == false).Include(x=> x.books).Include(x=>x.students).ToList();
 
             var commentConfig = new MapperConfiguration(cfg =>
             {
@@ -42,11 +42,11 @@ namespace MookApi.Service
             try
             {
                 Comments comments = new Comments();
-                comments = _context.Comments.Where(c => c.CommentID == commentID).FirstOrDefault();
+                comments = _context.Comments.Where(c => c.commentID == commentID).FirstOrDefault();
 
                 if (comments != null)
                 {
-                    comments.IsDeleted = true;
+                    comments.isDeleted = true;
 
                     _context.Comments.Update(comments);
                     _context.SaveChanges();
@@ -68,11 +68,11 @@ namespace MookApi.Service
             try
             {
                 Comments comments = new Comments();
-                comments = _context.Comments.Where(c => c.CommentID == commentID).FirstOrDefault();
+                comments = _context.Comments.Where(c => c.commentID == commentID).FirstOrDefault();
 
                 if (comments != null)
                 {
-                    comments.IsAdminAccepted = true;
+                    comments.isAdminAccepted = true;
 
                     _context.Comments.Update(comments);
                     _context.SaveChanges();
@@ -97,20 +97,20 @@ namespace MookApi.Service
             {
                 Comments comments = new Comments()
                 {
-                    IsDeleted = false,
-                    AcceptedAdminID = 0,
-                    FatherID = 0,
-                    CommentLike = 0,
-                    CommentDislike = 0,
-                    CommentFlag = false,
-                    IsAdminAccepted = commentViewModel.IsAdminAccepted,
-                    UpdateDate = commentViewModel.createdDate,
+                    isDeleted = false,
+                    acceptedAdminID = 0,
+                    fatherID = 0,
+                    commentLike = 0,
+                    commentDislike = 0,
+                    commentFlag = false,
+                    isAdminAccepted = commentViewModel.isAdminAccepted,
+                    updateDate = commentViewModel.createdDate,
                     createdDate = commentViewModel.createdDate,
-                    CommentContent = commentViewModel.commentContent,
-                    CommentHeader = commentViewModel.commentHeader,
-                    Admins = _context.Admins.FirstOrDefault(c => c.AdminID == commentViewModel.AdminID),
-                    Books = _context.Books.FirstOrDefault(c => c.bookID == commentViewModel.books.bookID),
-                    Students = _context.Students.FirstOrDefault(c => c.StudentID == commentViewModel.students.StudentID)
+                    commentContent = commentViewModel.commentContent,
+                    commentHeader = commentViewModel.commentHeader,
+                    admins = _context.Admins.FirstOrDefault(c => c.adminID == commentViewModel.adminID),
+                    books = _context.Books.FirstOrDefault(c => c.bookID == commentViewModel.books.bookID),
+                    students = _context.Students.FirstOrDefault(c => c.studentID == commentViewModel.students.studentID)
                 };
 
                 _context.Comments.Add(comments);
@@ -129,21 +129,21 @@ namespace MookApi.Service
             try
             {
                 Comments comments = new Comments();
-                comments = _context.Comments.FirstOrDefault(c => c.CommentID == commentViewModel.CommentID);
+                comments = _context.Comments.FirstOrDefault(c => c.commentID == commentViewModel.commentID);
 
-                comments.IsDeleted = false;
-                comments.FatherID = 0;
-                comments.CommentLike = 0;
-                comments.CommentDislike = 0;
-                comments.CommentFlag = false;
-                comments.IsAdminAccepted = commentViewModel.IsAdminAccepted;
-                comments.UpdateDate = commentViewModel.createdDate;
+                comments.isDeleted = false;
+                comments.fatherID = 0;
+                comments.commentLike = 0;
+                comments.commentDislike = 0;
+                comments.commentFlag = false;
+                comments.isAdminAccepted = commentViewModel.isAdminAccepted;
+                comments.updateDate = commentViewModel.createdDate;
                 comments.createdDate = commentViewModel.createdDate;
-                comments.CommentContent = commentViewModel.commentContent;
-                comments.CommentHeader = commentViewModel.commentHeader;
-                comments.Admins = _context.Admins.FirstOrDefault(c => c.AdminID == commentViewModel.AdminID);
-                comments.Books = _context.Books.FirstOrDefault(c => c.bookID == commentViewModel.books.bookID);
-                comments.Students = _context.Students.FirstOrDefault(c => c.StudentID == commentViewModel.students.StudentID);
+                comments.commentContent = commentViewModel.commentContent;
+                comments.commentHeader = commentViewModel.commentHeader;
+                comments.admins = _context.Admins.FirstOrDefault(c => c.adminID == commentViewModel.adminID);
+                comments.books = _context.Books.FirstOrDefault(c => c.bookID == commentViewModel.books.bookID);
+                comments.students = _context.Students.FirstOrDefault(c => c.studentID == commentViewModel.students.studentID);
 
                 _context.Comments.Update(comments);
                 var res = _context.SaveChanges();

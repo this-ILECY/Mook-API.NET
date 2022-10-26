@@ -7,6 +7,6 @@
         public string bookAuthor { get; set; }
         public string bookPublisher { get; set; }
 
-        public Students Students { get; set; }
+        public Students students { get; set; }
     }
 }

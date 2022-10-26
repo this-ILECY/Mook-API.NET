@@ -5,14 +5,14 @@ namespace MookApi.Models
     public class RequestDetails : DataInserter
     {
         [Key]
-        public int RequestDetailID { get; set; }
-        public int RequestHeaderID { get; set; }
-        public int BookID { get; set; }
-        public string? RequestDetailDescription { get; set; }
-        public Boolean? IsDamaged { get; set; }
-        public Boolean? IsLost { get; set; }
+        public int requestDetailID { get; set; }
+        public int requestHeaderID { get; set; }
+        public int bookID { get; set; }
+        public string? requestDetailDescription { get; set; }
+        public Boolean? isDamaged { get; set; }
+        public Boolean? isLost { get; set; }
 
-        public Books Books { get; set; }
-        public RequestHeader RequestHeader { get; set; }
+        public Books books { get; set; }
+        public RequestHeader requestHeader { get; set; }
     }
 }

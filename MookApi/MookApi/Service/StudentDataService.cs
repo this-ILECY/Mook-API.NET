@@ -41,11 +41,11 @@ namespace MookApi.Service
 
             List<StudentViewModel> studentViewModels = new List<StudentViewModel>();
             List<Students> students = new List<Students>();
-            students = _context.Students.Where(x => x.IsRegistered == true).ToList();
+            students = _context.Students.Where(x => x.isRegistered == true).ToList();
             studentViewModels = mapper.Map<List<StudentViewModel>>(students);
 
             List<RequestHeader> RequestHeader = new List<RequestHeader>();
-            RequestHeader = _context.RequestHeader.Include(x => x.students).Include(x => x.Admins).Include(x => x.RequestDetails).ToList();
+            RequestHeader = _context.RequestHeader.Include(x => x.students).Include(x => x.admins).Include(x => x.requestDetails).ToList();
             List<RequestDetails> requestDetails = new List<RequestDetails>();
             requestDetails = _context.RequestDetails.ToList();
 
@@ -53,35 +53,22 @@ namespace MookApi.Service
 
             foreach (var item in reportList)
             {
-                item.RequestCount = RequestHeader.Where(x => x.students.StudentID == item.StudentID).Count();
-                item.RequsetDelayCount = getDelayCount(RequestHeader.Where(x => x.students.StudentID == item.StudentID).ToList());
-                item.BookRent = requestDetails.Where(x => x.RequestHeader.StudentID == item.StudentID).Count();
-                item.BookDamaged = requestDetails.Where(x => x.IsDamaged == true && x.RequestHeader.StudentID == item.StudentID).Count();
-                item.BookLost = requestDetails.Where(x => x.IsLost == true && x.RequestHeader.StudentID == item.StudentID).Count();
-                item.CreatedDate = item.CreatedDate;
+                item.requestCount = RequestHeader.Where(x => x.students.studentID == item.studentID).Count();
+                item.requsetDelayCount = getDelayCount(RequestHeader.Where(x => x.students.studentID == item.studentID).ToList());
+                item.BookRent = requestDetails.Where(x => x.requestHeader.studentID == item.studentID).Count();
+                item.bookDamaged = requestDetails.Where(x => x.isDamaged == true && x.requestHeader.studentID == item.studentID).Count();
+                item.bookLost = requestDetails.Where(x => x.isLost == true && x.requestHeader.studentID == item.studentID).Count();
+                item.createdDate = item.createdDate;
             }
 
             return reportList;
         }
 
-        private Delay getIsDelay(RequestHeader rq)
-        {
-            Delay delay = new Delay();
-            var TimeNow = JalaliDate.getDate(DateTime.Now.ToLocalTime());
-            bool IsDelay = JalaliDate.compareDate(rq.RequestFinishedDate, TimeNow);
-
-            if (IsDelay)
-                delay.IsDelayed = true;
-            else
-                delay.IsDelayed = false;
-
-            return delay;
-        }
         private int getDelayCount(List<RequestHeader> rq)
         {
             int count = 0;
             foreach (var request in rq)
-                if (getIsDelay(request).IsDelayed) count++;
+                if (JalaliDate.getIsDelay(request,null).isDelayed) count++;
             return count;
         }
 
@@ -90,7 +77,7 @@ namespace MookApi.Service
             Students students = new Students();
             StudentViewModel studentViews = new StudentViewModel();
 
-            students = _context.Students.FirstOrDefault(x => x.StudentID == id);
+            students = _context.Students.FirstOrDefault(x => x.studentID == id);
 
             var studentConfig = new MapperConfiguration(cfg =>
             {
@@ -126,36 +113,36 @@ namespace MookApi.Service
             try
             {
                 Students students = new Students();
-                students = _context.Students.Where(c => c.StudentID == id).FirstOrDefault();
+                students = _context.Students.Where(c => c.studentID == id).FirstOrDefault();
 
                 if (students != null)
                 {
                     switch (method)
                     {
                         case changeMethod.IsBlocked:
-                            if (students.IsBlocked)
+                            if (students.isBlocked)
                             {
-                                students.IsBlocked = false;
+                                students.isBlocked = false;
                             }
                             else
                             {
-                                students.IsBlocked = true;
+                                students.isBlocked = true;
                             }
                             break;
                         case changeMethod.IsRegistered:
                             //later
                             //students.AcceptedAdminID = 1;
 
-                            students.IsRegistered = true;
+                            students.isRegistered = true;
                             break;
                         case changeMethod.IsSuspended:
-                            if (students.IsSuspended)
+                            if (students.isSuspended)
                             {
-                                students.IsSuspended = false;
+                                students.isSuspended = false;
                             }
                             else
                             {
-                                students.IsSuspended = true;
+                                students.isSuspended = true;
                             }
                             break;
                         default:
@@ -184,11 +171,11 @@ namespace MookApi.Service
             try
             {
                 Students students = new Students();
-                students = _context.Students.Where(c => c.StudentID == id).FirstOrDefault();
+                students = _context.Students.Where(c => c.studentID == id).FirstOrDefault();
 
                 if (students != null)
                 {
-                    students.IsDeleted = true;
+                    students.isDeleted = true;
 
                     _context.Students.Update(students);
                     _context.SaveChanges();
@@ -212,21 +199,21 @@ namespace MookApi.Service
 
             try
             {
-                students = _context.Students.Where(c => c.StudentID == studentViewModel.StudentID).FirstOrDefault();
+                students = _context.Students.Where(c => c.studentID == studentViewModel.studentID).FirstOrDefault();
 
                 if (students != null)
                 {
-                    students.StudentName = studentViewModel.StudentName;
-                    students.StudentSSID = studentViewModel.StudentSSID;
-                    students.StudentUniversityID = studentViewModel.StudentUniversityID;
-                    students.SpamCount = studentViewModel.SpamCount;
-                    students.IsSuspended = studentViewModel.IsSuspended;
-                    students.IsRegistered = studentViewModel.IsRegistered;
-                    students.createdDate = studentViewModel.CreatedDate;
-                    students.IsBlocked = studentViewModel.IsBlocked;
+                    students.studentName = studentViewModel.studentName;
+                    students.studentSSID = studentViewModel.studentSSID;
+                    students.studentUniversityID = studentViewModel.studentUniversityID;
+                    students.spamCount = studentViewModel.spamCount;
+                    students.isSuspended = studentViewModel.isSuspended;
+                    students.isRegistered = studentViewModel.isRegistered;
+                    students.createdDate = studentViewModel.createdDate;
+                    students.isBlocked = studentViewModel.isBlocked;
                     students.reportPoint = studentViewModel.reportPoint;
-                    students.IsSpam = studentViewModel.IsSpam;
-                    students.IsDeleted = false;
+                    students.isSpam = studentViewModel.isSpam;
+                    students.isDeleted = false;
 
                     _context.Students.Update(students);
                     _context.SaveChanges();
@@ -249,23 +236,23 @@ namespace MookApi.Service
             Students students = new Students();
             try
             {
-                Students duplicateStudent = _context.Students.FirstOrDefault(c => c.StudentSSID == studentViewModel.StudentSSID);
+                Students duplicateStudent = _context.Students.FirstOrDefault(c => c.studentSSID == studentViewModel.studentSSID);
 
                 if (duplicateStudent != null) return false;
 
-                students.StudentName = studentViewModel.StudentName;
-                students.StudentSSID = studentViewModel.StudentSSID;
-                students.StudentUniversityID = studentViewModel.StudentUniversityID;
-                students.SpamCount = 0;
-                students.IsSuspended = false;
-                students.IsRegistered = false;
-                students.createdDate = JalaliDate.getDate(DateTime.Parse(studentViewModel.CreatedDate));
-                students.UpdateDate = JalaliDate.getDate(DateTime.Parse(studentViewModel.CreatedDate));
-                students.IsBlocked = false;
+                students.studentName = studentViewModel.studentName;
+                students.studentSSID = studentViewModel.studentSSID;
+                students.studentUniversityID = studentViewModel.studentUniversityID;
+                students.spamCount = 0;
+                students.isSuspended = false;
+                students.isRegistered = false;
+                students.createdDate = JalaliDate.getDate(DateTime.Parse(studentViewModel.createdDate));
+                students.updateDate = JalaliDate.getDate(DateTime.Parse(studentViewModel.createdDate));
+                students.isBlocked = false;
                 students.reportPoint = 0;
-                students.IsSpam = false;
-                students.IsDeleted = false;
-                students.AcceptedAdminID = studentViewModel.AcceptedAdminID;
+                students.isSpam = false;
+                students.isDeleted = false;
+                students.acceptedAdminID = studentViewModel.acceptedAdminID;
 
                 _context.Students.Add(students);
                 _context.SaveChanges();

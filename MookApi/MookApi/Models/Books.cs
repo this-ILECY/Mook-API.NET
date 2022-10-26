@@ -8,22 +8,22 @@ namespace MookApi.Models
     {
         [Key]
         public int bookID { get; set; }
-        public string BookName { get; set; }
-        public int BookPagesCount { get; set; }
-        public float BookRating { get; set; }
+        public string bookName { get; set; }
+        public int bookPagesCount { get; set; }
+        public float bookRating { get; set; }
         public string publisher { get; set; }
-        public string Author { get; set; }
-        public int BookRatingCount { get; set; }
-        public string BookDescription { get; set; }
-        public Boolean IsAvailable { get; set;}
-        public Boolean IsDamaged {get; set;}
+        public string author { get; set; }
+        public int bookRatingCount { get; set; }
+        public string bookDescription { get; set; }
+        public Boolean isAvailable { get; set;}
+        public Boolean isDamaged {get; set;}
 
 
         [JsonIgnore]
         [IgnoreDataMember]
-        public Admins Admins { get; set; }
-        public List<RequestDetails> RequestDetails { get; set; }
-        public List<Comments> Comments { get; set; }
+        public Admins admins { get; set; }
+        public List<RequestDetails> requestDetails { get; set; }
+        public List<Comments> comments { get; set; }
 
         //done
     }

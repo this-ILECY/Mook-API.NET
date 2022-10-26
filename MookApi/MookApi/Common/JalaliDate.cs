@@ -1,4 +1,7 @@
-﻿namespace MookApi.Common
+﻿using MookApi.Models;
+using MookApi.ViewModel;
+
+namespace MookApi.Common
 {
     public static class JalaliDate
     {
@@ -19,7 +22,7 @@
                 return Zyx.Utility.Calendar.GetPersianDate(dt.GetValueOrDefault(), "/") + " " + Zyx.Utility.Calendar.GetHourMinute(dt.GetValueOrDefault());
             else
                 return null;
-            
+
         }
         public static DateTime? toGeorgian(this string? dt)
         {
@@ -33,7 +36,7 @@
             }
             else
                 return null;
-            
+
         }
         public static int? getDay(this string? dt)
         {
@@ -67,7 +70,7 @@
         }
         public static bool compareDate(string timeOne, string timeTwo)
         {
-            
+
             if (getYear(timeOne) <= getYear(timeTwo))
             {
                 if (getMonth(timeOne) <= getMonth(timeTwo))
@@ -84,7 +87,27 @@
             }
             else
                 return false;
-            
+
+        }
+        public static Delay getIsDelay(RequestHeader rq, RequestViewModel rqv)
+        {
+            Delay delay = new Delay();
+            var TimeNow = JalaliDate.getDate(DateTime.Now.ToLocalTime());
+
+            bool IsDelay;
+            if (rq != null & rqv == null)
+                IsDelay = JalaliDate.compareDate(rq.requestFinishedDate, TimeNow);
+            else if (rq == null & rqv != null)
+                IsDelay = JalaliDate.compareDate(rqv.requestFinishedDate, TimeNow);
+            else
+                IsDelay = false;
+
+            if (IsDelay)
+                delay.isDelayed = true;
+            else
+                delay.isDelayed = false;
+
+            return delay;
         }
 
     }

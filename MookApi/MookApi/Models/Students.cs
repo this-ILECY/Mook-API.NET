@@ -8,25 +8,26 @@ namespace MookApi.Models
     public class Students : DataInserter
     {
         [Key]
-        public int StudentID { get; set; }
-        public string StudentName { get; set; }
-        public string StudentSSID { get; set; }
-        public string StudentUniversityID { get; set; }
-        public int SpamCount { get; set; }
-        public bool IsSuspended { get; set; }
-        public bool IsRegistered {get; set;}
-        public bool IsBlocked { get; set; }
+        public int studentID { get; set; }
+        public long userID { get; set; }
+        public string studentName { get; set; }
+        public string studentSSID { get; set; }
+        public string studentUniversityID { get; set; }
+        public int spamCount { get; set; }
+        public bool isSuspended { get; set; }
+        public bool isRegistered {get; set;}
+        public bool isBlocked { get; set; }
         public int reportPoint { get; set; }
-        public bool IsSpam { get; set; }
+        public bool isSpam { get; set; }
 
         [JsonIgnore]
         [IgnoreDataMember]
-        public Admins Admins { get; set; }
-        public List<History> Histories { get; set; }
-        public List<BookToBuy> BooksTobuy { get; set; }
+        public Admins admins { get; set; }
+        public List<History> histories { get; set; }
+        public List<BookToBuy> booksTobuy { get; set; }
         public Users users { get; set; }
-        public List<Comments> Comments { get; set; }
-        public List<RequestHeader> RequestHeaders { get; set; }
+        public List<Comments> comments { get; set; }
+        public List<RequestHeader> requestHeaders { get; set; }
         //done
     }
 }

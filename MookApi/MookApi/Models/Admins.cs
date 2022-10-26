@@ -5,15 +5,16 @@ namespace MookApi.Models
     public class Admins : DataInserter
     {
         [Key]
-        public int AdminID { get; set; }
-        public string AdminName { get; set; }
+        public int adminID { get; set; }
+        public long userID { get; set; }
+        public string adminName { get; set; }
 
-        public List<History> HistoryFk { get; set; }
-        public List<Students> StudentsFk { get; set; }
-        public List<Books> BooksFk { get; set; }
-        public List<RequestHeader> RequestHeaderFk { get; set; }
-        public List<Comments> CommentsFk { get; set; }
-        public Users UsersFk { get; set; }
+        public List<History> history { get; set; }
+        public List<Students> students { get; set; }
+        public List<Books> books { get; set; }
+        public List<RequestHeader> requestHeader { get; set; }
+        public List<Comments> comments { get; set; }
+        public Users users { get; set; }
         //done
     }
 }

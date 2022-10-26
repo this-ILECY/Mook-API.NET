@@ -61,16 +61,16 @@ namespace MookApi.Service
 
                 if (books != null)
                 {
-                    books.IsDeleted = false;
-                    books.Author = bookViewModel.author;
+                    books.isDeleted = false;
+                    books.author = bookViewModel.author;
                     books.publisher = bookViewModel.publisher;
-                    books.BookPagesCount = bookViewModel.bookPagesCount;
-                    books.BookRating = bookViewModel.bookRating;
-                    books.BookName = bookViewModel.bookName;
-                    books.BookRatingCount = bookViewModel.bookRatingCount;
-                    books.BookDescription = bookViewModel.bookDescription;
-                    books.IsAvailable = bookViewModel.isAvailable;
-                    books.IsDamaged = bookViewModel.isDamaged;
+                    books.bookPagesCount = bookViewModel.bookPagesCount;
+                    books.bookRating = bookViewModel.bookRating;
+                    books.bookName = bookViewModel.bookName;
+                    books.bookRatingCount = bookViewModel.bookRatingCount;
+                    books.bookDescription = bookViewModel.bookDescription;
+                    books.isAvailable = bookViewModel.isAvailable;
+                    books.isDamaged = bookViewModel.isDamaged;
 
 
                     _context.Books.Update(books);
@@ -94,26 +94,26 @@ namespace MookApi.Service
             {
                 Books books = new Books();
                 Books nameIsSimilar = _context.Books
-                    .FirstOrDefault(x => x.BookName.Replace(" ", "") == bookViewModel.bookName.Replace(" ", "") 
+                    .FirstOrDefault(x => x.bookName.Replace(" ", "") == bookViewModel.bookName.Replace(" ", "") 
                     & x.publisher.Replace(" ", "") == bookViewModel.publisher.Replace(" ", "")
-                    & x.BookPagesCount == bookViewModel.bookPagesCount
-                    & x.Author.Replace(" ","") == bookViewModel.author.Replace(" ",""));
+                    & x.bookPagesCount == bookViewModel.bookPagesCount
+                    & x.author.Replace(" ","") == bookViewModel.author.Replace(" ",""));
 
                 if (nameIsSimilar != null) return false;
 
-                books.IsDeleted = false;
-                books.Author = bookViewModel.author;
+                books.isDeleted = false;
+                books.author = bookViewModel.author;
                 books.publisher = bookViewModel.publisher;
-                books.BookPagesCount = bookViewModel.bookPagesCount;
-                books.BookRating = 0;
-                books.BookName = bookViewModel.bookName;
-                books.BookRatingCount = 0;
-                books.BookDescription = bookViewModel.bookDescription;
-                books.IsAvailable = false;
-                books.IsDamaged = false;
+                books.bookPagesCount = bookViewModel.bookPagesCount;
+                books.bookRating = 0;
+                books.bookName = bookViewModel.bookName;
+                books.bookRatingCount = 0;
+                books.bookDescription = bookViewModel.bookDescription;
+                books.isAvailable = false;
+                books.isDamaged = false;
                 books.createdDate = bookViewModel.createdDate;
-                books.UpdateDate = bookViewModel.createdDate;
-                books.AcceptedAdminID = bookViewModel.AcceptedAdminID;
+                books.updateDate = bookViewModel.createdDate;
+                books.acceptedAdminID = bookViewModel.acceptedAdminID;
 
                 _context.Books.Add(books);
                 _context.SaveChanges();
