@@ -39,16 +39,16 @@ namespace MookApi.Controllers
         {
 
             bool result = _service.Update(bookViewModel);
-            if (result != null) return Ok(result);
-            else return BadRequest();
+            if (result) return Ok(result);
+            else return BadRequest(result);
         }
 
         [HttpPost]
         public ActionResult<Boolean> Create(BookViewModel bookViewModel)
         {
             bool result = _service.Create(bookViewModel);
-            if (result != null) return Ok(result);
-            else return BadRequest();
+            if (result) return Ok(result);
+            else return BadRequest(result);
         }
 
     }

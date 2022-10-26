@@ -30,4 +30,10 @@
     <Folder Include="NewFolder\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Zyx.Utility">
+      <HintPath>externalRef\Zyx.Utility.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

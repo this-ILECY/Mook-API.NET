@@ -8,11 +8,10 @@ namespace MookApi.Models
     {
         [Key]
         public int RequestID { get; set; }
+        public int StudentID { get; set; }
         public string? RequestAcceptedDate { get; set; }
         public Boolean IsAccepted { get; set; }
         public string? RequestFinishedDate { get; set; }
-        public Boolean IsDelayed { get; set; }
-        public int? DelayDays { get; set; }
         public string? RequestDecription { get; set; }
 
         [JsonIgnore]
